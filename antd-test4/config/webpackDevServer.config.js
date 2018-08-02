@@ -80,7 +80,21 @@ module.exports = function(proxy, allowedHost) {
       disableDotRule: true,
     },
     public: allowedHost,
-    proxy,
+      proxy: [{
+          context: [
+              '**',
+              '!/mock/**',//排除
+              '!/css/**',//排除
+              '!/**.png',//排除
+              '!/iconfont/**',//排除
+              '!/tpl/**',//排除
+          ],
+          target: 'http://172.19.102.206:8080/fishAjax/',
+          //target: 'http://172.16.64.167:22122/acsmanager/',
+          //target: 'http://localhost:8090', // 本地
+          changeOrigin: false,
+          proxyTimeout: 100000
+      }],
     before(app) {
       // This lets us open files from the runtime error overlay.
       app.use(errorOverlayMiddleware());
