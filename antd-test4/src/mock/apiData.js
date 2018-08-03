@@ -9,146 +9,146 @@ Mock.mock("mock/test",{
 Mock.mock("mock/menuInfoController/qryMenu",{
     "menuData": [
         {
-            name: '首页',
+            menuName: '首页',
             icon: 'home',
-            path: '/',
-            id: 1
+            menuUrl: '/',
+            menuId: 1
         },
         {
-            name: '调研问卷管理',
+            menuName: '调研问卷管理',
             icon: 'form',
-            path: '/nps/surveyQstnaire',
-            id: 2,
+            menuUrl: '/nps',
+            menuId: 2,
             children: [
                 {
-                    name: '题目管理',
-                    path: '/questionLibMgr',
-                    id: 21,
+                    menuName: '题目管理',
+                    menuUrl: '/nps/questionLibMgr',
+                    menuId: 21,
                 },
                 {
-                    name: '问卷管理',
-                    path: 'questionMgr',
-                    id: 22,
+                    menuName: '问卷管理',
+                    menuUrl: '/nps/questionMgr',
+                    menuId: 22,
                     children:[
                         {
-                            name: '问卷申请',
-                            path: 'questionnaireFor',
-                            id: 221,
+                            menuName: '问卷申请',
+                            menuUrl: '/system/domain',
+                            menuId: 221,
                         },
                         {
-                            name: '问卷审核',
-                            path: 'questionnaireReview',
-                            id: 222,
+                            menuName: '问卷审核',
+                            menuUrl: '/system/dept',
+                            menuId: 222,
                         },
                         {
-                            name: '问卷库',
-                            path: 'questionnaireLibrary',
-                            id: 223,
+                            menuName: '问卷库',
+                            menuUrl: '/questionnaireLibrary',
+                            menuId: 223,
                         }
                     ]
                 }
             ],
         },
         {
-            name: '调研任务管理',
+            menuName: '调研任务管理',
             icon: 'table',
-            path: 'list',
-            id: 3,
+            menuUrl: 'list',
+            menuId: 3,
             children: [
                 {
-                    name: '触发式调研任务申请',
-                    path: 'table-list',
-                    id: 31,
+                    menuName: '触发式调研任务申请',
+                    menuUrl: 'table-list',
+                    menuId: 31,
                 },
                 {
-                    name: '调研任务申请',
-                    path: 'basic-list',
-                    id: 32,
+                    menuName: '调研任务申请',
+                    menuUrl: 'basic-list',
+                    menuId: 32,
                 },
                 {
-                    name: '调研任务审核',
-                    path: 'card-list',
-                    id: 33,
+                    menuName: '调研任务审核',
+                    menuUrl: 'card-list',
+                    menuId: 33,
                 },
                 {
-                    name: '调研任务终止',
-                    path: 'basic-list',
-                    id: 34,
+                    menuName: '调研任务终止',
+                    menuUrl: 'basic-list',
+                    menuId: 34,
                 },
                 {
-                    name: '周期性调研',
-                    path: 'card-list',
-                    id: 35,
+                    menuName: '周期性调研',
+                    menuUrl: 'card-list',
+                    menuId: 35,
                 }
             ],
         },
         {
-            name: '调研资源管理',
+            menuName: '调研资源管理',
             icon: 'profile',
-            path: 'profile',
-            id: 4,
+            menuUrl: 'profile',
+            menuId: 4,
             children: [
                 {
-                    name: '调研资源规划',
-                    path: 'basic',
-                    id: 41,
+                    menuName: '调研资源规划',
+                    menuUrl: 'basic',
+                    menuId: 41,
                 },
                 {
-                    name: '调研资源统计图',
-                    path: 'advanced',
+                    menuName: '调研资源统计图',
+                    menuUrl: 'advanced',
                     authority: 'admin',
-                    id: 42,
+                    menuId: 42,
                 },
             ],
         },
         {
-            name: '满意度运营分析',
+            menuName: '满意度运营分析',
             icon: 'check-circle-o',
-            path: 'result',
-            id: 5,
+            menuUrl: 'result',
+            menuId: 5,
             children: [
                 {
-                    name: '调研结果分析',
-                    path: 'success',
-                    id: 51,
+                    menuName: '调研结果分析',
+                    menuUrl: 'success',
+                    menuId: 51,
                 }
             ]
         },
         {
-            name: '客户忠诚度感知',
+            menuName: '客户忠诚度感知',
             icon: 'user',
-            path: 'profile',
-            id: 6,
+            menuUrl: 'profile',
+            menuId: 6,
             children: [
                 {
-                    name: '感知总视图',
-                    path: 'basic',
-                    id: 61,
+                    menuName: '感知总视图',
+                    menuUrl: 'basic',
+                    menuId: 61,
                 },
                 {
-                    name: '支局视图',
-                    path: 'advanced',
+                    menuName: '支局视图',
+                    menuUrl: 'advanced',
                     authority: 'admin',
-                    id: 62,
+                    menuId: 62,
                 },
                 {
-                    name: '用户视图',
-                    path: 'basic',
-                    id: 63,
+                    menuName: '用户视图',
+                    menuUrl: 'basic',
+                    menuId: 63,
                 },
                 {
-                    name: '统计报表',
-                    path: 'advanced',
+                    menuName: '统计报表',
+                    menuUrl: 'advanced',
                     authority: 'admin',
-                    id: 64,
+                    menuId: 64,
                 },
             ],
         },
         {
-            name: '系统管理',
+            menuName: '系统管理',
             icon: 'setting',
-            path: 'result',
-            id: 7
+            menuUrl: 'system',
+            menuId: 7
         }
     ],
 })

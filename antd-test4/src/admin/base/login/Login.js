@@ -117,6 +117,7 @@ class Login extends React.Component {
 
     isLogined() {
         autorun(() => {
+            debugger;
             if (this.store.LoginModel.usercode) {
                 this.props.history.push('/');
             }

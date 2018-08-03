@@ -8,7 +8,7 @@ const { Footer } = Layout;
 class Foot extends React.PureComponent {
     render() {
         return (
-            <Footer style={{ textAlign: 'center' }}>
+            <Footer>
                 Ant Design ©2016 Created by Ant UED
             </Footer>
         )

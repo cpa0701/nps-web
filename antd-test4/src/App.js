@@ -17,7 +17,7 @@ import stores from './model/Stores';
 import './less/index.less'
 import './mock/apiData'
 
-moment.locale('zh-cn');
+moment.locale('en');
 
 class App extends Component {
     render() {

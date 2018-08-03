@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer'
 import Breadcrumb from '../Breadcrumb/Breadcrumb'
 
 import Home from "../Home/Home"
+import QuestionLibMgr from "@admin/nps/QuestionLibMgr"
 import Domain from "../System/Domain/Domain"
 import Dept from "../System/Dept/Dept"
 
@@ -25,6 +26,7 @@ class Main extends React.PureComponent {
                         <div className="content">
                             <Switch>
                                 <Route path="/" exact component={Home}/>
+                                <Route path="/nps/questionLibMgr" component={QuestionLibMgr}/>
                                 <Route path="/system/domain" component={Domain}/>
                                 <Route path="/system/dept" component={Dept}/>
                             </Switch>
