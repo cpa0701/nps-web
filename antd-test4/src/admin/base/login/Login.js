@@ -104,20 +104,19 @@ class Login extends React.Component {
                 //     message.error(head.remark);
                 // }
                 // else {
-                    //restrict模式下,run in action
-                    runInAction(() => {
-                        message.success('登录成功！');
+                //restrict模式下,run in action
+                runInAction(() => {
+                    message.success('登录成功！');
 
-                        //登录状态变更
-                        this.store.LoginModel.login(result);
-                    });
+                    //登录状态变更
+                    this.store.LoginModel.login(result);
+                });
                 // }
             });
     }
 
     isLogined() {
         autorun(() => {
-            debugger;
             if (this.store.LoginModel.usercode) {
                 this.props.history.push('/');
             }
@@ -165,7 +164,7 @@ class Login extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-
+        const {login} = this.props.stores.I18nModel.outputLocale
         return (<div className="login">
             <div className="login-logo">
 
@@ -175,7 +174,7 @@ class Login extends React.Component {
                     {document.title}
                 </div>
                 <div className="login-box-cont">
-                    <div className="login-title">登录</div>
+                    <div className="login-title">{login.loginTitle}</div>
                     <div className="ipt-box-cont">
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Item>
@@ -190,7 +189,7 @@ class Login extends React.Component {
                                         ]
                                     })(
                                         <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                                               placeholder="请输入您的账号" size="large"
+                                               placeholder={login.accountPlaceHolder} size="large"
                                         />
                                     )
                                 }
@@ -208,7 +207,7 @@ class Login extends React.Component {
                                     })(<Input prefix={<Icon type="lock"
                                                             style={{color: 'rgba(0,0,0,.25)'}}/>}
                                               type="password"
-                                              placeholder="请输入您的密码"
+                                              placeholder={login.passwordPlaceHolder}
                                               size="large"
                                               autoComplete="new-password"
                                     />)
@@ -216,15 +215,16 @@ class Login extends React.Component {
                             </Form.Item>
 
                             <Row>
-                                <Col span={12}>
+                                <Col span={16} style={{lineHeight: '40px'}}>
                                     <Radio checked={this.state.rememberUc}
                                            onClick={this.toggleRememberUc}
                                     >
-                                        记住密码
+                                        {login.rememberPassword}
                                     </Radio>
                                 </Col>
-                                <Col span={12}>
-                                    <Button type="primary" htmlType="submit" loading={this.state.loading}>登录</Button>
+                                <Col span={8}>
+                                    <Button type="primary" htmlType="submit"
+                                            loading={this.state.loading}>{login.loginButton}</Button>
                                 </Col>
                             </Row>
                         </Form>
@@ -232,7 +232,7 @@ class Login extends React.Component {
                     </div>
                     {<div className="ipt-box-bottom">
                         <a className="forgot" onClick={this.handleResetPassword}>
-                            忘记密码？
+                            {login.forgetPassword}
                         </a>
                     </div>}
                 </div>

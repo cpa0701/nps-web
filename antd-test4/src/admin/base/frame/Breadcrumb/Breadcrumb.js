@@ -1,8 +1,6 @@
 import React from 'react';
-import AntPageHeader from 'ant-design-pro/lib/PageHeader';
-import {HashRouter as Link, withRouter} from 'react-router-dom';
-import {Breadcrumb, Alert} from 'antd';
-// import {withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import {Breadcrumb} from 'antd';
 import {observer, inject} from 'mobx-react';
 
 import "./Breadcrumb.less"

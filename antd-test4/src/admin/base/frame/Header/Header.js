@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Menu, Icon,Radio} from 'antd';
+import {Layout, Menu, Icon, Dropdown} from 'antd';
 import MenuSer from '../../../../services/MenuSer';
 import {observer, inject} from 'mobx-react';
 import {Link} from 'react-router-dom';
@@ -21,8 +21,20 @@ class Head extends React.Component {
         this.stores = this.props.stores;
 
         this.initMenu = this.initMenu.bind(this)
-        this.changeLocale = this.changeLocale.bind(this)
+        this.mainOptionClick = this.mainOptionClick.bind(this)
     }
+
+    mainOptionClick = ({key}) => {
+        this.stores.I18nModel.changeLocale(key);
+        localStorage.setItem('locale', key);
+    };
+    menu =
+        (
+            <Menu onClick={this.mainOptionClick}>
+                <Menu.Item key="zh-cn">中文</Menu.Item>
+                <Menu.Item key="en">English</Menu.Item>
+            </Menu>
+        )
 
     componentWillMount() {
         MenuSer.getMenuList().then(res => {
@@ -37,6 +49,7 @@ class Head extends React.Component {
             current: e.key,
         });
     }
+
     initMenu = (menuData = this.state.menuData) => {
         if (!menuData)
             return false;
@@ -68,15 +81,6 @@ class Head extends React.Component {
             }
         )
     }
-    changeLocale = (e) => {
-        const localeValue = e.target.value;
-        this.setState({locale: localeValue});
-        // if (!localeValue) {
-        //     moment.locale('en');
-        // } else {
-        //     moment.locale('zh-cn');
-        // }
-    }
 
     render() {
         return (
@@ -94,6 +98,11 @@ class Head extends React.Component {
                     this.initMenu()
                 }</Menu>
 
+                <div className='main-options'>
+                    <Dropdown overlay={this.menu}>
+                        <Icon type='appstore'/>
+                    </Dropdown>
+                </div>
             </Header>
         )
     }

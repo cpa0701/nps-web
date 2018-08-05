@@ -8,6 +8,7 @@ import NotFound from './admin/base/error/NotFound';
 import Login from './admin/base/login/Login';
 import Main from './admin/base/frame/Layout/Main';
 import AuthorizedRoute from './admin/base/login/AuthorizedRoute';
+import * as mobx from 'mobx';
 
 import {Provider} from "mobx-react";
 
@@ -17,12 +18,36 @@ import stores from './model/Stores';
 import './less/index.less'
 import './mock/apiData'
 
-moment.locale('en');
+const {autorun} = mobx;
 
 class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            locale: null
+        };
+    }
+
+    componentWillMount() {
+        this.changeLocale();
+    }
+
+    changeLocale = () => {
+        autorun(() => {
+            const {locale} = stores.I18nModel
+            if (locale !== 'zh-cn') {
+                moment.locale('en');
+                this.setState({locale: undefined});//默认为en，所以不必引入en文件
+            } else {
+                moment.locale('zh-cn');
+                this.setState({locale: zhCN});
+            }
+        })
+    }
+
     render() {
         return (
-            <LocaleProvider locale={zhCN}>
+            <LocaleProvider locale={this.state.locale}>
                 <Provider stores={stores}>
                     <Router>
                         <Switch>
