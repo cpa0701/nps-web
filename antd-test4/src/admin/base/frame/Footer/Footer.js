@@ -9,7 +9,7 @@ class Foot extends React.PureComponent {
     render() {
         return (
             <Footer>
-                Ant Design ©2016 Created by Ant UED
+                © 中兴软创科技股份有限公司 版权所有| All Rights Reserved
             </Footer>
         )
     }

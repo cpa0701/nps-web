@@ -1,0 +1,73 @@
+.content-inner {
+  .divider {
+    width: 1px;
+    height: 24px;
+    border-left: 1px solid #e5f0fa;
+  }
+  .btnGroup {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    :global {
+      .ant-btn {
+        -webkit-text-size-adjust: none;
+        font-size: 10px;
+        width: 20%;
+        padding: 0;
+        height: 24px;
+      }
+      .ant-btn > .anticon + span, .ant-btn > span + .anticon {
+        margin-left: 2px;
+      }
+      .btnThre {
+        width: 28%;
+      }
+    }
+  }
+
+}
+.leftTree {
+  //border: 1px solid #99bbe8;
+  height: 100%;
+  header {
+    font-size: 12px;
+    color: #23496d;
+    font-weight: bold;
+    background: #e5f0fa;
+    border-width: 0;
+    border-bottom: 1px solid #23496d;
+    padding: 6px 0 4px 10px;
+    line-height: 15px;
+  }
+
+  .treeStyle {
+    border: 1px solid #e5f0fa;
+    height: 400px;
+  }
+}
+.rightContent {
+  padding-left: 10px;
+  .btnGroup {
+    width: 40%;
+    position: relative;
+  }
+  :global {
+    .ant-tabs-bar {
+      margin: 0;
+    }
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-nav-container {
+      height: 27px;
+    }
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+      line-height: 24px;
+    }
+    .ant-radio-group {
+      position: absolute;
+      right: -166px;
+    }
+  }
+  .authorityManage, .deptManage {
+    height: 200px;
+  }
+}

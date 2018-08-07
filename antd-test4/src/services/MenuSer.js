@@ -7,7 +7,7 @@ class MenuSer {
     //分页列表查询
     getMenuList = async (param)=>{
         //var url = 'protal/protalMenuController/qryMenuPage';
-        var url = 'menuInfoController/qryMenu';
+        var url = 'mock/menuInfoController/qryMenu';
         return await Http.post(url,param);
     }
 

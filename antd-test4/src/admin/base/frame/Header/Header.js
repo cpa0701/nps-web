@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, Menu, Icon, Dropdown} from 'antd';
 import MenuSer from '../../../../services/MenuSer';
 import {observer, inject} from 'mobx-react';
-import {Link} from 'react-router-dom';
+import {Link,withRouter} from 'react-router-dom';
 import "./Header.less"
 
 const {Header} = Layout;
@@ -25,14 +25,20 @@ class Head extends React.Component {
     }
 
     mainOptionClick = ({key}) => {
-        this.stores.I18nModel.changeLocale(key);
-        localStorage.setItem('locale', key);
+        if(key.includes('zh-cn')||key.includes('en')){
+            this.stores.I18nModel.changeLocale(key);
+            localStorage.setItem('locale', key);
+        }else {
+            this.stores.LoginModel.logout();
+            window.location.reload();
+        }
     };
     menu =
         (
             <Menu onClick={this.mainOptionClick}>
                 <Menu.Item key="zh-cn">中文</Menu.Item>
                 <Menu.Item key="en">English</Menu.Item>
+                <Menu.Item key="logout">登出</Menu.Item>
             </Menu>
         )
 
@@ -108,4 +114,4 @@ class Head extends React.Component {
     }
 }
 
-export default Head;
+export default withRouter(Head);

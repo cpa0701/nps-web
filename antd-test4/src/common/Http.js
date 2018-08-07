@@ -8,32 +8,32 @@ export class Http {
     getUrl(url) {
         let prefix = '';
         let suffix = '';
-        switch (this.mode) {
-            case 'local': {
-                prefix = 'mock/';
-                suffix = '';
-                break;
-            }
-            case 'remote': {
-                prefix = '';
-                break;
-            }
-            case 'product': {
-                prefix = '';
-                break;
-            }
-            default: {
-                prefix = '';
-                break;
-            }
-        }
-        let _url = prefix + url + suffix;
-        return _url;
+        // switch (this.mode) {
+        //     case 'local': {
+        //         prefix = 'mock/';
+        //         suffix = '';
+        //         break;
+        //     }
+        //     case 'remote': {
+        //         prefix = '';
+        //         break;
+        //     }
+        //     case 'product': {
+        //         prefix = '';
+        //         break;
+        //     }
+        //     default: {
+        //         prefix = '';
+        //         break;
+        //     }
+        // }
+        // let _url = prefix + url + suffix;
+        return url;
     }
 
     async get(api, config = {}) {
         api = this.getUrl(api);
-        if (this.mode === 'local') {
+        if (api.includes('mock')) {
             return await new Promise(function (resolve, reject) {
                 $.ajax({
                     url: api, type: "get",
@@ -58,7 +58,7 @@ export class Http {
         api = this.getUrl(api);
 
         const formBody = JSON.stringify(data);
-        if (this.mode === 'local') {
+        if (api.includes('mock')) {
             return await new Promise(function (resolve, reject) {
                 $.ajax({
                     url: api, data: formBody, type: "post",
@@ -75,6 +75,29 @@ export class Http {
                 {
                     url: api,
                     method: 'POST',
+                    params: formBody,
+                }, config
+            );
+    }
+
+    async delete(api, config = {}) {
+        api = this.getUrl(api);
+        return await this._request(
+            {
+                url: api,
+                method: 'DELETE',
+            }, config
+        );
+    }
+
+    async put(api, data = {}, config = {}) {
+        api = this.getUrl(api);
+
+        const formBody = JSON.stringify(data);
+            return await this._request(
+                {
+                    url: api,
+                    method: 'PUT',
                     params: formBody,
                 }, config
             );
