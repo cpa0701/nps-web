@@ -202,14 +202,14 @@ Mock.mock('mock/menuInfoController/qryMenu', {
     ],
 })
 
-//获取区域树
-Mock.mock('mock/region/initRegionInfo', (params) => {
+//获取部门树
+Mock.mock('mock/dept/initDeptTree', (params) => {
     let params1 = JSON.parse(params.body);
     if (!params1.rowId)
         return Mock.mock({
             'treeData|5': [{
                 'rowId|+1': 1,
-                'ideptId|+1': '@integer(1,1213123120)',
+                'ideptId|+1': 12131,
                 'iDeptLevel': '2',
                 'sdeptName': '@cname',
                 'iParentId': '0',
@@ -241,28 +241,271 @@ Mock.mock('mock/region/initRegionInfo', (params) => {
         })
     }
 })
+//判断部门唯一性
+Mock.mock('mock/dept/checkDeptName', (params) => {
+    let params1 = JSON.parse(params.body);
+    return Mock.mock({
+        'result': {
+            'code': 0
+        }
+    })
+})
+//新增部门
+Mock.mock('mock/dept/addDept', (params) => {
+    let params1 = JSON.parse(params.body);
+    return Mock.mock({
+        'result': {
+            'code': 0
+        }
+    })
+})
+//删除部门
+Mock.mock('mock/dept/dleDept', (params) => {
+    let params1 = JSON.parse(params.body);
+    return Mock.mock({
+        'result': {
+            'code': 0
+        }
+    })
+})
+//编辑部门
+Mock.mock('mock/dept/ediDept', (params) => {
+    let params1 = JSON.parse(params.body);
+    return Mock.mock({
+        'result': {
+            'code': 0
+        }
+    })
+})
+
+//编辑部门
+Mock.mock('mock/dept/getStaffData', (params) => {
+    let params1 = JSON.parse(params.body);
+    return Mock.mock({
+        'dataList': [
+            {
+            "rowId": "1",
+            "iRecCount": "3",
+            "totalCount": "3",
+            "RN": "1",
+            "dBirthday": null,
+            "dEntryDate": null,
+            "sOutEmail": null,
+            "cCDMA": "18122038821",
+            "sPHS": null,
+            "iKnowledge": "0",
+            "iPubAccount": "2",
+            "sRemark": null,
+            "dAvailBeginDate": "2012-10-01 00:00:00.0",
+            "dAvailEndDate": "2040-10-19 23:59:59.0",
+            "iStaffId": "211033",
+            "iDeptId": "2306575",
+            "iTitleId": "-1",
+            "iDomainId": "1010001",
+            "sStaffNo": "1",
+            "sStaffName": "nocjktest",
+            "sTelphone": "18122038821",
+            "sMobile": "18122038821",
+            "sInEmail": null,
+            "sFaxCode": null,
+            "sDispName": "/常规/集团NOC/集团北京NOC/",
+            "sDomainName": "集团",
+            "sStaffAccount": "nocjktest",
+            "iSex": "1",
+            "sValid": "有效",
+            "sSex": "男",
+            "iDelFlag": "正常",
+            "sTitleName": null,
+            "iIsSynch": "0",
+            "iLeaderId": null,
+            "sLeaderName": null,
+            "sLeaderAccount": null
+        }, {
+            "rowId": "2",
+            "iRecCount": "3",
+            "totalCount": "3",
+            "RN": "2",
+            "dBirthday": null,
+            "dEntryDate": null,
+            "sOutEmail": null,
+            "cCDMA": null,
+            "sPHS": null,
+            "iKnowledge": "0",
+            "iPubAccount": "2",
+            "sRemark": null,
+            "dAvailBeginDate": "2018-08-01 00:00:00.0",
+            "dAvailEndDate": "2018-08-24 23:59:59.0",
+            "iStaffId": "1748300853",
+            "iDeptId": "412530",
+            "iTitleId": "-1",
+            "iDomainId": "1010001",
+            "sStaffNo": "123",
+            "sStaffName": "123",
+            "sTelphone": null,
+            "sMobile": null,
+            "sInEmail": null,
+            "sFaxCode": null,
+            "sDispName": "/常规/",
+            "sDomainName": "集团",
+            "sStaffAccount": "123",
+            "iSex": "1",
+            "sValid": "有效",
+            "sSex": "男",
+            "iDelFlag": "待修改密码",
+            "sTitleName": null,
+            "iIsSynch": null,
+            "iLeaderId": null,
+            "sLeaderName": null,
+            "sLeaderAccount": null
+        }, {
+            "rowId": "3",
+            "iRecCount": "3",
+            "totalCount": "3",
+            "RN": "3",
+            "dBirthday": null,
+            "dEntryDate": null,
+            "sOutEmail": null,
+            "cCDMA": null,
+            "sPHS": null,
+            "iKnowledge": "0",
+            "iPubAccount": "2",
+            "sRemark": null,
+            "dAvailBeginDate": "2018-07-03 00:00:00.0",
+            "dAvailEndDate": "2018-07-31 23:59:59.0",
+            "iStaffId": "1748300840",
+            "iDeptId": "412530",
+            "iTitleId": "1748300843",
+            "iDomainId": "1010001",
+            "sStaffNo": "1314",
+            "sStaffName": "李亚会",
+            "sTelphone": null,
+            "sMobile": null,
+            "sInEmail": null,
+            "sFaxCode": null,
+            "sDispName": "/常规/",
+            "sDomainName": "集团",
+            "sStaffAccount": "lyh",
+            "iSex": "1",
+            "sValid": "失效",
+            "sSex": "男",
+            "iDelFlag": "待修改密码",
+            "sTitleName": "牛逼的职位",
+            "iIsSynch": null,
+            "iLeaderId": null,
+            "sLeaderName": null,
+            "sLeaderAccount": null
+        }],
+        'pageInfo':{
+            'totalRow':'@integer(1,500)',
+            'pageNum':10,
+            'pageIndex':'@integer(1,50)'
+        }
+    })
+})
+//获取部门页面角色树
+Mock.mock('mock/dept/getRoleTree', (params) => {
+    let params1 = JSON.parse(params.body);
+    if (!params1.rowId)
+        return Mock.mock({
+            'treeData|5': [{
+                'rowId|+1': 1,
+                'ideptId|+1': 12131,
+                'iDeptLevel': '2',
+                'sdeptName': '@cname',
+                'iParentId': '0',
+                'sdispName': '/常规/',
+                'spathId': '/0/412530/',
+                'idomainId|+1': 1010001,
+                'sDomainName': '@cname',
+                'iSortIndex': '1',
+                'iDeptType|+1': 1,
+                'childCount': '2'
+            }]
+        })
+    else {
+        return Mock.mock({
+            'treeData|2': [{
+                'rowId|+1': params1.rowId * 10 + 1,
+                'ideptId|+1': params1.rowId * 10 + 1,
+                'iDeptLevel': params1.iDeptLevel + 1,
+                'sdeptName': '@cname',
+                'iParentId': params1.rowId,
+                'sdispName': '/常规/',
+                'spathId': '/0/412530/',
+                'idomainId|+1': params1.idomainId * 10 + 1,
+                'sDomainName': '@cname',
+                'iSortIndex': '1',
+                'iDeptType|+1': 1,
+                'childCount': '@integer(0,10)'
+            }]
+        })
+    }
+})
+//获取部门页面权限树
+Mock.mock('mock/dept/getAuthorityTree', (params) => {
+    let params1 = JSON.parse(params.body);
+    if (!params1.rowId)
+        return Mock.mock({
+            'treeData|5': [{
+                'rowId|+1': 1,
+                'ideptId|+1': 12131,
+                'iDeptLevel': '2',
+                'sdeptName': '@cname',
+                'iParentId': '0',
+                'sdispName': '/常规/',
+                'spathId': '/0/412530/',
+                'idomainId|+1': 1010001,
+                'sDomainName': '@cname',
+                'iSortIndex': '1',
+                'iDeptType|+1': 1,
+                'childCount': '2'
+            }]
+        })
+    else {
+        return Mock.mock({
+            'treeData|2': [{
+                'rowId|+1': params1.rowId * 100 + 1,
+                'ideptId|+1': params1.rowId * 10 + 1,
+                'iDeptLevel': params1.iDeptLevel + 1,
+                'sdeptName': '@cname',
+                'iParentId': params1.rowId,
+                'sdispName': '/常规/',
+                'spathId': '/0/412530/',
+                'idomainId|+1': params1.idomainId * 10 + 1,
+                'sDomainName': '@cname',
+                'iSortIndex': '1',
+                'iDeptType|+1': 1,
+                'childCount': '@integer(0,10)'
+            }]
+        })
+    }
+})
+
 //获取角色树
 Mock.mock('mock/system/rolesController/qryRolesTree', {
     "treeData": [
         {
             name: '角色树',
-            key: '1',
+            key: '0',
             isParent: false,
             children: [
                 {
                     name: '系统管理员',
                     key: '1.1',
                     isParent: true,
+                    parentId: '0',
                     children: [
                         {
                             name: '角色A',
                             key: '1.1.1',
                             isParent: true,
+                            parentId: '1.1',
                         },
                         {
                             name: '角色B',
                             key: '1.1.2',
                             isParent: true,
+                            parentId: '1.1',
                         }
                     ]
                 },
@@ -270,20 +513,79 @@ Mock.mock('mock/system/rolesController/qryRolesTree', {
                     name: '业务员',
                     key: '1.2',
                     isParent: true,
+                    parentId: '0',
                     children: [
                         {
                             name: '角色C',
                             key: '1.2.1',
                             isParent: true,
+                            parentId: '1.2',
                         },
                         {
                             name: '角色D',
                             key: '1.2.2',
                             isParent: true,
+                            parentId: '1.2',
                         }
                     ]
                 },
             ]
+        }
+    ]
+})
+//区域管理
+Mock.mock("mock/SystemController/doMain",{
+    "domainData" : [
+        {
+            key: 1,
+            name: '区域树',
+            type: '省',
+            id: '',
+            No:'1',
+            'children': [{
+                key: 11,
+                name: '集团',
+                'type|1': [1, 2, 3],
+                'id|1': [1, 2, 3],
+                No:'2',
+                'children|3': [
+                    {
+                        key: "@natural(1,10000)",
+                        name: '@cname',
+                        'type|1': [1, 2, 3],
+                        'id|1': [1, 2, 3],
+                        No: "@natural(1,10000)",
+                    }],
+            }]
+        },{
+            key: 12,
+            name: '重保域',
+            type: '本地网',
+            id: 'ZB',
+            No:'5'
+        }],
+
+})
+//获取用户表数据
+Mock.mock('mock/system/rolesController/getUserDate', {
+    "userData": [
+        {
+            id: 1,
+            userName: '张三',
+            deptName: '综合管理',
+            create: '人事1'
+        },
+        {
+            id: 2,
+            userName: '李四',
+            deptName: '研发部',
+            create: '人事2'
+        },
+        {
+            id: 3,
+            userName: '王五',
+            deptName: '财务',
+            create: '人事1'
         }
     ]
 })

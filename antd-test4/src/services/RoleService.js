@@ -6,11 +6,23 @@ class SysRoleMgService {
       let url = 'mock/system/rolesController/qryRolesTree';
       return await Http.post(url, param);
   };
+
+    // 权限树查询
+    qryAuthTree = async (param) => {
+        let url = 'mock/system/rolesController/qryAuthTree';
+        return await Http.post(url, param);
+    };
+
   // 平台角色新增
   addRoles = async (param) => {
     let url = 'system/rolesController/addRoles';
     return await Http.post(url, param);
   };
+    // 平台角色复制
+    copyRoles = async (param) => {
+        let url = 'system/rolesController/copyRoles';
+        return await Http.post(url, param);
+    };
   // 平台角色删除
   delRoles = async (param) => {
     let url = 'system/rolesController/delRoles';
@@ -36,6 +48,17 @@ class SysRoleMgService {
     let url = 'system/rolePrivController/delRolePriv';
     return await Http.post(url, param);
   }
+
+    // 查询用户数据
+    getUserDate = async (param) => {
+        let url = 'mock/system/rolesController/getUserDate';
+        return await Http.post(url, param);
+    };
+    // 平台用户删除
+    delUsers = async (param) => {
+        let url = 'mock/system/rolesController/delUsers';
+        return await Http.post(url, param);
+    };
 }
 
 export default new SysRoleMgService();

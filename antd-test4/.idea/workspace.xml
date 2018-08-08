@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba972d78-2f55-4c32-a887-211e3bee0012" name="Default" comment="国际化完成">
-      <change afterPath="$PROJECT_DIR$/src/admin/system/authority/Authority.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/authority/Authority.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/dept/Dept.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/dept/Dept.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/dept/DeptForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/dept/ParentTreeSelect.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/domain/Domain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/domain/Domain.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/role/Role.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/admin/system/role/Role.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/DomainService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/RoleService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin/base/frame/Footer/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/base/frame/Footer/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin/base/frame/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/base/frame/Header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin/base/frame/Layout/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin/base/frame/Layout/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/LoginService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LoginService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/MenuSer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/MenuSer.js" afterDir="false" />
-    </list>
+    <list default="true" id="ba972d78-2f55-4c32-a887-211e3bee0012" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -42,53 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuSer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/MenuSer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="9" column="45" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Header.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/admin/base/frame/Header/Header.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Footer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/admin/base/frame/Footer/Footer.js">
+      <file leaf-file-name="index.less" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/less/index.less">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
-              <caret line="11" column="51" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/admin/base/frame/Layout/Main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-              <folding>
-                <element signature="e#500#549#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dept.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/admin/system/dept/Dept.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -220,86 +159,6 @@
               <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
               <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="frame" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="frame" type="462c0819:PsiDirectoryNode" />
-              <item name="Footer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="frame" type="462c0819:PsiDirectoryNode" />
-              <item name="Header" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="frame" type="462c0819:PsiDirectoryNode" />
-              <item name="Layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="dept" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="antd-test4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="antd-test4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -308,7 +167,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/workSpace/web/esop-web" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -317,11 +176,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\myProject\nps-web\antd-test4" />
       <recent name="D:\myProject\nps-web\antd-test4\src\admin" />
       <recent name="D:\myProject\nps-web\antd-test4\src\admin\base\frame" />
       <recent name="D:\myProject\nps-web\antd-test4\src\admin\base" />
       <recent name="D:\myProject\nps-web\antd-test4\src" />
-      <recent name="D:\myProject\nps-web\antd-test4" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\myProject\nps-web\antd-test4\src" />
@@ -400,7 +259,7 @@
       <workItem from="1533257682472" duration="7082000" />
       <workItem from="1533440442642" duration="3164000" />
       <workItem from="1533462743410" duration="11014000" />
-      <workItem from="1533602783207" duration="970000" />
+      <workItem from="1533602783207" duration="1184000" />
     </task>
     <task id="LOCAL-00001" summary="create-react-app">
       <created>1533116644145</created>
@@ -430,11 +289,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533258632137</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="同步更新">
+      <created>1533603811742</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1533603811743</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53823000" />
+    <option name="totallyTimeSpent" value="54037000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -447,9 +313,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32995495" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -458,7 +323,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.4481982" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.2885906" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.2882883" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
@@ -511,7 +376,8 @@
     <MESSAGE value="create-ract-app-nps" />
     <MESSAGE value="登录，菜单，mock" />
     <MESSAGE value="生产环境增加jq引用" />
-    <option name="LAST_COMMIT_MESSAGE" value="生产环境增加jq引用" />
+    <MESSAGE value="同步更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="同步更新" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/antd/lib/message/index.d.ts" />
@@ -719,13 +585,6 @@
     <entry file="file://$PROJECT_DIR$/src/src/less/index.less">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/less/index.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
@@ -738,13 +597,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/admin/nps/QuestionLibMgr.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/admin/base/login/Login.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -765,13 +617,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/admin/system/authority/Authority.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/MenuSer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="9" column="45" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="45" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/admin/base/frame/Header/Header.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -804,6 +649,27 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/MenuSer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="9" column="45" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/less/index.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>

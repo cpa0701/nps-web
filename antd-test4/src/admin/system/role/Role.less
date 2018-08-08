@@ -47,17 +47,22 @@
   }
 }
 .rightContent {
-  padding-left: 10px;
+  padding-left: 16px;
   .btnGroup {
     width: 40%;
     position: relative;
+  }
+  .btnGroupOther {
+    width: 26%;
+    justify-content: flex-start;
+    padding: 5px;
   }
   :global {
     .ant-tabs-bar {
       margin: 0;
     }
     .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-nav-container {
-      height: 27px;
+      height: 26px;
     }
     .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
       line-height: 24px;
@@ -67,7 +72,28 @@
       right: -166px;
     }
   }
+  header {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 8px;
+    border: 1px solid #ddd;
+    border-top: 1px solid #1890ff;
+    background: #f4f4f4;
+    color: #000;
+  }
+  header:hover {
+    background: #e5f0fa;
+  }
   .authorityManage, .deptManage {
     height: 200px;
+  }
+  .searchForm {
+    background: #e5f0fa;
+    border: 1px solid #f4f4f4;
+    :global {
+      .ant-input {
+        height: 26px;
+      }
+    }
   }
 }

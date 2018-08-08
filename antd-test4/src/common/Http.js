@@ -6,8 +6,8 @@ export class Http {
     mode = 'local';
 
     getUrl(url) {
-        let prefix = '';
-        let suffix = '';
+        // let prefix = '';
+        // let suffix = '';
         // switch (this.mode) {
         //     case 'local': {
         //         prefix = 'mock/';

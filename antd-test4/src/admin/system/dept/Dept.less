@@ -6,10 +6,14 @@
     cursor: pointer;
     transition: color .3s;
   }
+  .triggered {
+    position: absolute;
+    left: -22px;
+  }
   .trigger:hover {
     color: #1890ff;
   }
-  .dept-header{
+  .dept-header {
     background: #fff;
     padding: 0;
     padding-left: 10px;
@@ -22,14 +26,38 @@
     background: #E5F0FA;
     padding: 0 6px;
   }
-  .departmentBtn{
+  .departmentBtn {
     display: flex;
     justify-content: space-around;
   }
-  .departmentH6{
+  .departmentH6 {
     margin: 0.5em 0 0;
     background: #dddddd;
     line-height: 32px;
     padding-left: 6px;
+  }
+
+  .ant-advanced-search-form {
+    padding: 24px;
+    background: #fbfbfb;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    button {
+      margin-right: 5px;
+    }
+  }
+
+  .ant-advanced-search-form .ant-form-item {
+    display: flex;
+    margin-bottom: 0;
+  }
+
+  .ant-advanced-search-form .ant-form-item-control-wrapper {
+    flex: 1;
+  }
+  .thirdBlockBtn {
+    button {
+      margin-right: 5px;
+    }
   }
 }

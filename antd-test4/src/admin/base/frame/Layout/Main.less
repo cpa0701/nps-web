@@ -6,15 +6,17 @@
   float: left;
 }
 
-.layout {
-  height: 100%;
-  .ant-layout-content {
-    height: calc(100% - 64px - 69px);
-  }
-  .content {
-    background: #fff;
-    padding: 24px;
-    height: calc(100% - 53px);
-    overflow: auto;
+#root {
+  > .layout {
+    height: 100%;
+    > .ant-layout-content {
+      height: calc(100% - 64px - 41px);
+      > .content {
+        background: #fff;
+        padding: 24px;
+        height: calc(100% - 36px);
+        overflow: auto;
+      }
+    }
   }
 }
