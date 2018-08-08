@@ -531,26 +531,34 @@ export default class Dept extends PureComponent {
                                             </Popconfirm>
                                         </Col>
                                     </Row>
+                                    <Row>
+                                        <Col span={12}>
+                                            <h6 className='departmentH6'>角色树</h6>
+                                            <div style={{'borderRight': '1px solid #ddd'}}>
+                                                <TreeComponent
+                                                    showLine={true}
+                                                    checkable={true}
+                                                    defaultExpandedKeys={['0-0-0']}
+                                                    onSelect={this.onSelectRoleTree}
+                                                    onCheck={this.onSelectRoleTree}
+                                                    treeData={roleTreeData}
+                                                    onLoadData={this.onLoadRoleTreeData}/>
+                                            </div>
+                                        </Col>
+                                        <Col span={12}>
+                                            <h6 className='departmentH6'>权限树</h6>
+                                            <TreeComponent
+                                                showLine={true}
+                                                checkable={true}
+                                                defaultExpandedKeys={['0-0-0']}
+                                                onSelect={this.onSelectAuthorityTree}
+                                                onCheck={this.onSelectAuthorityTree}
+                                                treeData={authorityTreeData}
+                                                onLoadData={this.onLoadAuthorityTreeData}/>
+                                        </Col>
+                                    </Row>
                                 </TabPane>
                                 <TabPane tab="权限" key="2">
-                                    待开发
-                                </TabPane>
-                            </Tabs>
-                            <Row>
-                                <Col span={12}>
-                                    <h6 className='departmentH6'>角色树</h6>
-                                    <div style={{'borderRight': '1px solid #ddd'}}>
-                                        <TreeComponent
-                                            showLine={true}
-                                            checkable={true}
-                                            defaultExpandedKeys={['0-0-0']}
-                                            onSelect={this.onSelectRoleTree}
-                                            onCheck={this.onSelectRoleTree}
-                                            treeData={roleTreeData}
-                                            onLoadData={this.onLoadRoleTreeData}/>
-                                    </div>
-                                </Col>
-                                <Col span={12}>
                                     <h6 className='departmentH6'>权限树</h6>
                                     <TreeComponent
                                         showLine={true}
@@ -560,8 +568,8 @@ export default class Dept extends PureComponent {
                                         onCheck={this.onSelectAuthorityTree}
                                         treeData={authorityTreeData}
                                         onLoadData={this.onLoadAuthorityTreeData}/>
-                                </Col>
-                            </Row>
+                                </TabPane>
+                            </Tabs>
                         </div>
                     </Content>
                 </Layout>
