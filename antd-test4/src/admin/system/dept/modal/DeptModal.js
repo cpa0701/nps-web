@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
-import {Form, Input, InputNumber, Modal, message, Select, TreeSelect, Row, Col} from 'antd';
+import {Form, Input, Modal, message, Select, Row, Col} from 'antd';
 
-import DeptService from '../../../services/DeptService';
+import DeptService from '../../../../services/DeptService';
 
 const FormItem = Form.Item;
 const {Option} = Select;
@@ -26,47 +26,47 @@ class Dept extends PureComponent {
         form.resetFields();
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        this.setActionType(nextProps);
-    }
-    //   设置动作类型
-    setActionType = (nextProps) => {
-        const {departmentData} = this.props;
-        let realSysvData = departmentData;
-        if (nextProps) {
-            //如果在props更新的时候调用，那么用nextProps为准
-            realSysvData = nextProps.departmentData;
-        }
-        let action = 'A';
-        if (nextProps && nextProps.thisTime) {
-            action = nextProps.thisTime;
-        }
-        this.actionType = action
-        this.setState({
-            actionTypeName: actionTypeMap[action]
-        });
-
-          if('V' === action){
-            this.setState({
-              footer: null
-            });
-          }
-          else {
-            this.setState({
-              footer: undefined
-            });
-          }
-
-    }
-
-
-    handleConfirmId = (rule, value, callback) => {
-        const {getFieldValue} = this.props.form
-        if (getFieldValue('IDOMAINTYPE') === '' || getFieldValue('IDOMAINTYPE') === undefined) {
-            callback('请先选择上级菜单')
-        }
-        callback()
-    }
+    // componentWillReceiveProps = (nextProps) => {
+    //     this.setActionType(nextProps);
+    // }
+    // //   设置动作类型
+    // setActionType = (nextProps) => {
+    //     const {departmentData} = this.props;
+    //     let realSysvData = departmentData;
+    //     if (nextProps) {
+    //         //如果在props更新的时候调用，那么用nextProps为准
+    //         realSysvData = nextProps.departmentData;
+    //     }
+    //     let action = 'A';
+    //     if (nextProps && nextProps.thisTime) {
+    //         action = nextProps.thisTime;
+    //     }
+    //     this.actionType = action
+    //     this.setState({
+    //         actionTypeName: actionTypeMap[action]
+    //     });
+    //
+    //       if('V' === action){
+    //         this.setState({
+    //           footer: null
+    //         });
+    //       }
+    //       else {
+    //         this.setState({
+    //           footer: undefined
+    //         });
+    //       }
+    //
+    // }
+    //
+    //
+    // handleConfirmId = (rule, value, callback) => {
+    //     const {getFieldValue} = this.props.form
+    //     if (getFieldValue('IDOMAINTYPE') === '' || getFieldValue('IDOMAINTYPE') === undefined) {
+    //         callback('请先选择上级菜单')
+    //     }
+    //     callback()
+    // }
     // 查询父级部门名字
     // searchName=(parentId)=>{
     //     // debugger
@@ -139,7 +139,7 @@ class Dept extends PureComponent {
                             rules: [
                                 {required: true, message: '所属区域不能为空'}
                             ],
-                            initialValue: 1,
+                            initialValue: (domainTreeDate.iDomainId ? domainTreeDate.iDomainId : 1),
                         })(
                             <Select disabled={actionType === "V"}>
                                 {domainSelect}
@@ -208,7 +208,7 @@ class Dept extends PureComponent {
                                 {validator: this.handleCheckName},
                                 {whitespace: true, message: '请输入非空白内容'}
                             ],
-                            initialValue: this.props.departmentData.sdeptName,
+                            initialValue: domainTreeDate.sdeptName,
                             // initialValue: { menuUrl: this.props.departmentData.menuUrl !== undefined ? this.props.departmentData.menuUrl + '' : '' },
                         })(
                             <Input disabled={actionType === "V"}/>

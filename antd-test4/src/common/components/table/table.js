@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import {Table, Alert, Spin, Button, message} from 'antd';
-import styles from './index.less';
+import {Table, Alert, Spin, Button} from 'antd';
+import './table.less';
 
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',');
 
@@ -61,7 +61,7 @@ class StandardTable extends PureComponent {
     }
 
     handleSearch = (params) => {
-        const {service, method, cusParams, list} = this.props;
+        const {service, method, cusParams} = this.props;
 
         let _params = {};
         if (cusParams) {
@@ -101,24 +101,24 @@ class StandardTable extends PureComponent {
                 //     message.error(success === '0' ? '系统错误，请联系管理员' : '该记录已存在');
                 // }
                 // else {
-                    let pageSizeOptions = ['5', '10', '20', '30', '40'];
-                    let dataSource = data.dataList || data.page;
-                    if (this.props.onFinishLoading) {
-                        dataSource = this.props.onFinishLoading(_params.pageInfo.pageIndex, data.dataList);
-                    }
-                    this.setState({
-                        loading: false,
-                        list: dataSource,
-                        pagination: data.pageInfo ? {
-                            total: this.getInteger(data.pageInfo.totalRow),
-                            pageSize: this.getInteger(data.pageInfo.pageNum),
-                            current: this.getInteger(data.pageInfo.pageIndex),
-                            pageSizeOptions: pageSizeOptions
-                        } : false,
-                        selectedRowKeys: [dataSource[0][this.props.rowKey]],
-                        clickedRowIndex: dataSource[0][this.props.rowKey],
-                    });
-                    this.props.onSelectRow(dataSource[0])
+                let pageSizeOptions = ['5', '10', '20', '30', '40'];
+                let dataSource = data.dataList || data.page;
+                if (this.props.onFinishLoading) {
+                    dataSource = this.props.onFinishLoading(_params.pageInfo.pageIndex, data.dataList);
+                }
+                this.setState({
+                    loading: false,
+                    list: dataSource,
+                    pagination: data.pageInfo ? {
+                        total: this.getInteger(data.pageInfo.totalRow),
+                        pageSize: this.getInteger(data.pageInfo.pageNum),
+                        current: this.getInteger(data.pageInfo.pageIndex),
+                        pageSizeOptions: pageSizeOptions
+                    } : false,
+                    selectedRowKeys: [dataSource[0][this.props.rowKey]],
+                    clickedRowIndex: dataSource[0][this.props.rowKey],
+                });
+                this.props.onSelectRow([dataSource[0]])
                 // }
             });
     }
@@ -207,7 +207,7 @@ class StandardTable extends PureComponent {
     onRowClick = (record, index) => {
         const {onRowClick} = this.props;
         this.setState({
-            clickedRowIndex: record.IDOMAINID
+            clickedRowIndex: record[this.props.rowKey]
         });
         if (typeof(onRowClick) === 'function') {
             onRowClick(record, index);
@@ -215,11 +215,11 @@ class StandardTable extends PureComponent {
     }
 
     rowClassName = (record, index) => {
-        // if (this.state.clickedRowIndex === record.IDOMAINID) {
-        //     //点击行的样式
-        //     return 'ant-table-row-selected';
-        // }
-        // return 'ant-table-row-nonSelected';
+        if (this.state.clickedRowIndex === record[this.props.rowKey]) {
+            //点击行的样式
+            return 'ant-table-row-selected';
+        }
+        return 'ant-table-row-nonSelected';
     }
 
     render() {
@@ -263,9 +263,9 @@ class StandardTable extends PureComponent {
         const rowSelectionOpts = showRowSelection === false ? null : rowSelection;
         let showSelectTips = rowSelection.type === 'radio' ? false : showRowSelection;
         return (
-            <div className={styles.standardTable}>
+            <div className={'standardTable'}>
                 {showSelectTips === false ? null :
-                    <div className={styles.tableAlert}>
+                    <div className={'tableAlert'}>
                         <Alert
                             message={(
                                 <div>
@@ -306,9 +306,12 @@ class StandardTable extends PureComponent {
                             },       // 点击行
                             onMouseEnter: () => {
                             },  // 鼠标移入行
+                            onDoubleClick: (e) => {
+                                this.props.onDoubleClick && this.props.onDoubleClick(record, index);
+                            }
                         }
                     }}
-                    scroll={{x: 2000,y:500}}
+                    scroll={{y: 300}}
                     rowClassName={this.rowClassName}
                     dataSource={list}
                     columns={columns}

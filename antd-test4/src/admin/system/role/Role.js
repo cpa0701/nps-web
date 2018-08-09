@@ -2,11 +2,17 @@ import React, {PureComponent} from 'react';
 import {Row, Col, Button, Tabs, Radio, Table, Form, Input, Popconfirm, message} from 'antd';
 
 import SysRoleMgService from '../../../services/RoleService';
+import DeptService from '../../../services/DeptService';
 
 import Tree from './Tree';
 import RoleAdd from './modal/roleModal/RoleAdd';
 import RoleEdit from './modal/roleModal/RoleEdit';
 import RoleCopy from './modal/roleModal/RoleCopy';
+
+import AuthEdit from './modal/AuthEdit';
+import RegEdit from './modal/RegionEdit';
+import DeptEdit from './modal/DeptEdit';
+import UserAdd from './modal/UserAdd';
 
 import './Role.less';
 
@@ -16,20 +22,28 @@ const [TabPane, RadioGroup, FormItem] = [Tabs.TabPane, Radio.Group, Form.Item];
 export default class Role extends PureComponent {
     state = {
         treeData: [], // 角色树
-        authData: [], // 权限树
-        domainData: [], // 区域管理树
+        authData: [], // 角色拥有权限树
+        regionData: [], // 用户区域管理树
+        deptTreeData: [], // 用户所属部门树
+        authCheckedKeys: [], // 勾选的角色存在的权限id
+        regSelectKeys: [], // 用户所属区域的id
+        deptCheckedKeys: [], // 勾选的角色存在的部门id
         userData: [], // 用户表
         deptData: [], // 部门表
         checkedKeys: [], //角色树勾选
         selRowKeys: [], // 用户表勾选
         fullPaths: [], // 角色树扁平化数据
-        record: {},
+        record: {}, // 编辑角色时的obj数据
         parentId: '0',
         selectedKeys: [],
         loading: false,
         add: false,
+        addUser: false,
         edit: false,
         copy: false,
+        editAuth: false,
+        editReg:false,
+        editDept: false,
         // value: 1,
         pagination: {
             showSizeChanger: true,
@@ -42,6 +56,7 @@ export default class Role extends PureComponent {
     };
 
     componentDidMount() {
+        // 获取角色树
         this.roleQuery();
     }
     isMount = true;
@@ -58,7 +73,7 @@ export default class Role extends PureComponent {
     };
 
     // 获取角色树
-    roleQuery = () => {
+    roleQuery = (params) => {
         const fullPaths = [];
         const spread = dataModel => dataModel.map((item) => {
             fullPaths.push(item);
@@ -67,8 +82,13 @@ export default class Role extends PureComponent {
             }
             return '';
         });
-        SysRoleMgService.qryRoleTree()
+        DeptService.getDeptTree(params)
             .then(res => {
+                res.treeData.map(item => {
+                    item.title = item.sdeptName;
+                    item.key = item.ideptId;
+                    item.isLeaf = !item.childCount;
+                });
                 this.setState({
                     treeData: res.treeData,
                 });
@@ -91,8 +111,13 @@ export default class Role extends PureComponent {
                 resolve();
                 return;
             }
-            SysRoleMgService.qryRoleTree(treeNode.props.dataRef)
+            DeptService.getDeptTree(treeNode.props.dataRef)
                 .then(result => {
+                    result.treeData.map(item => {
+                        item.title = item.sdeptName;
+                        item.key = item.ideptId;
+                        item.isLeaf = !item.childCount;
+                    });
                     treeNode.props.dataRef.children = [...result.treeData];
                     this.setState({
                         treeData: [...this.state.treeData]
@@ -110,46 +135,17 @@ export default class Role extends PureComponent {
             parentId: select,
             record: info.node.props.dataRef
         });
+        let params = {roleId: select};
+        this.authQuery(params);
+        this.getUserData(params);
     };
     // 勾选角色树节点时
     onCheck = (checkedKeys) => {
+        let params = {roleId: checkedKeys};
         this.setState({ checkedKeys });
+        this.authQuery(params);
+        this.getUserData(params);
     };
-
-    // 获取权限树
-    authQuery = () => {
-        SysRoleMgService.qryAuthTree()
-            .then(res => {
-                this.setState({
-                    authData: res.authData,
-                });
-            });
-    };
-    //异步加载权限树节点
-    loadAuthData = (treeNode) => {
-        return new Promise((resolve) => {
-            if (treeNode.props.children) {
-                resolve();
-                return;
-            }
-            SysRoleMgService.qryAuthTree(treeNode.props.dataRef)
-                .then(result => {
-                    treeNode.props.dataRef.children = [...result.authData];
-                    this.setState({
-                        authData: [...this.state.authData]
-                    });
-                    resolve();
-                })
-        });
-    };
-
-    // 全局域/个性域切换
-    // onChange = (e) => {
-    //     this.setState({
-    //         value: e.target.value,
-    //     });
-    // };
-
     // 新增角色
     addRoleModal = (show) => {
         if (show) {
@@ -213,7 +209,7 @@ export default class Role extends PureComponent {
         }
         this.setState({loading: true}, () => {
             SysRoleMgService.delRoles({ids: checkedKeys}).then((res) => {
-                if (res.success) {
+                if (res.code === 0) {
                     message.success('删除成功');
                     this.treeQuery();
                     if (this.isMount) {
@@ -227,6 +223,203 @@ export default class Role extends PureComponent {
                 }
             });
         });
+    };
+
+    // 获取角色拥有权限树
+    authQuery = (params) => {
+        const fullPaths = [];
+        const spread = dataModel => dataModel.map((item) => {
+            fullPaths.push(item);
+            if (item.children) {
+                spread(item.children);
+            }
+            return '';
+        });
+        DeptService.getDeptTree(params)
+            .then(res => {
+                res.treeData.map(item => {
+                    item.title = item.sdeptName;
+                    item.key = item.ideptId;
+                    item.isLeaf = !item.childCount;
+                });
+                this.setState({
+                    authData: res.treeData,
+                });
+
+                spread(res.treeData);
+                let authCheckedKeys = [];
+                fullPaths.map(item => {
+                    authCheckedKeys.push(item.ideptId);
+                });
+                console.log('rrr',authCheckedKeys);
+                this.setState({authCheckedKeys});
+            });
+    };
+    //异步加载权限树节点
+    loadAuthData = (treeNode) => {
+        return new Promise((resolve) => {
+            if (treeNode.props.children) {
+                resolve();
+                return;
+            }
+            DeptService.getDeptTree(treeNode.props.dataRef)
+                .then(result => {
+                    result.treeData.map(item => {
+                        item.title = item.sdeptName;
+                        item.key = item.ideptId;
+                        item.isLeaf = !item.childCount;
+                    });
+                    treeNode.props.dataRef.children = [...result.treeData];
+                    this.setState({
+                        authData: [...this.state.authData]
+                    });
+                    resolve();
+                })
+        });
+    };
+    // 编辑权限
+    editAuthModal = (show, checkedKeys, type) => {
+        if (checkedKeys.length !== 0) {
+            this.setState({
+                editAuth: true
+            });
+        } else if (type === 1) {
+            this.setState({editAuth: false});
+        } else {
+            this.setState({editAuth: false});
+            message.info('请选择需要编辑权限的角色');
+        }
+    };
+    // 批量删除权限
+    delAuths = () => {
+        let checkedKeys = this.state.checkedKeys;
+        if(checkedKeys.length === 0) {
+            message.info('请在左侧勾选要删除权限的角色');
+            return;
+        }
+        this.setState({loading: true}, () => {
+            SysRoleMgService.delRolePriv({ids: checkedKeys}).then((res) => {
+                if (res.code === 0) {
+                    message.success('删除成功');
+                    // this.treeQuery(); 删除成功动作
+                    if (this.isMount) {
+                        this.setState({loading: false});
+                    }
+                } else {
+                    message.error('删除失败');
+                    if (this.isMount) {
+                        this.setState({loading: false});
+                    }
+                }
+            });
+        });
+    };
+
+    // 全局域/个性域切换
+    // onChange = (e) => {
+    //     this.setState({
+    //         value: e.target.value,
+    //     });
+    // };
+
+    // 获取角色区域树
+    regionQuery = (params) => {
+        SysRoleMgService.qryRegionTree(params)
+            .then(res => {
+                res.treeData.map(item => {
+                    item.title = item.sdeptName;
+                    item.key = item.ideptId;
+                    item.isLeaf = !item.childCount;
+                });
+                this.setState({
+                    regionData: res.treeData,
+                });
+            });
+    };
+    //异步加载区域树节点
+    // loadRegData = (treeNode) => {
+    //     return new Promise((resolve) => {
+    //         if (treeNode.props.children) {
+    //             resolve();
+    //             return;
+    //         }
+    //         SysRoleMgService.qryRegTree(treeNode.props.dataRef)
+    //             .then(result => {
+    //                 result.treeData.map(item => {
+    //                     item.title = item.sdeptName;
+    //                     item.key = item.ideptId;
+    //                     item.isLeaf = !item.childCount;
+    //                 });
+    //                 treeNode.props.dataRef.children = [...result.treeData];
+    //                 this.setState({
+    //                     regionData: [...this.state.regionData]
+    //                 });
+    //                 resolve();
+    //             })
+    //     });
+    // };
+    // 编辑选择区域
+    editRegionModal = (show, checkedKeys, type) => {
+        if (checkedKeys.length !== 0) {
+            this.setState({
+                editReg: true
+            });
+        } else if (type === 1) {
+            this.setState({editReg: false});
+        } else {
+            this.setState({editReg: false});
+            message.info('请选择需要选择区域的角色');
+        }
+    };
+
+    // 获取部门树
+    deptQuery = (params) => {
+        DeptService.getDeptTree(params)
+            .then(res => {
+                res.treeData.map(item => {
+                    item.title = item.sdeptName;
+                    item.key = item.ideptId;
+                    item.isLeaf = !item.childCount;
+                });
+                this.setState({
+                    deptTreeData: res.treeData,
+                });
+            });
+    };
+    //异步加载部门树节点
+    loadDeptData = (treeNode) => {
+        return new Promise((resolve) => {
+            if (treeNode.props.children) {
+                resolve();
+                return;
+            }
+            DeptService.getDeptTree(treeNode.props.dataRef)
+                .then(result => {
+                    result.treeData.map(item => {
+                        item.title = item.sdeptName;
+                        item.key = item.ideptId;
+                        item.isLeaf = !item.childCount;
+                    });
+                    treeNode.props.dataRef.children = [...result.treeData];
+                    this.setState({
+                        deptTreeData: [...this.state.deptTreeData]
+                    });
+                    resolve();
+                })
+        });
+    };
+    // 编辑权限
+    editDeptModal = (show, checkedKeys, type) => {
+        if (checkedKeys.length !== 0) {
+            this.setState({
+                editDept: true
+            });
+        } else if (type === 1) {
+            this.setState({editDept: false});
+        } else {
+            this.setState({editDept: false});
+            message.info('请选择需要编辑部门的角色');
+        }
     };
 
     // 获取人员信息表格数据
@@ -243,12 +436,30 @@ export default class Role extends PureComponent {
             if (errors) {
                 return;
             }
-            this.getUserData(values);
+            let params = {
+                ...values,
+                roleId: this.state.checkedKeys
+            };
+            this.getUserData(params);
         });
     };
+    // 获取勾选用户表格id
     onSelectChange = (selectedRowKeys) => {
         console.log('selectedRowKeys', selectedRowKeys);
         this.setState({ selRowKeys: selectedRowKeys });
+    };
+    // 新增角色
+    addUsers = (show, type) => {
+        if (show.length !== 0) {
+            this.setState({
+                addUser: true
+            });
+        } else if (type === 1) {
+            this.setState({addUser: false});
+        } else {
+            this.setState({addUser: false});
+            message.info('请选择需要新增人员的角色');
+        }
     };
     // 删除用户
     delUsers = () => {
@@ -259,7 +470,7 @@ export default class Role extends PureComponent {
         }
         this.setState({loading: true}, () => {
             SysRoleMgService.delUsers({ids: selRowKeys}).then((res) => {
-                if (res.success) {
+                if (res.code === 0) {
                     message.success('删除成功');
                     this.getUserData();
                     if (this.isMount) {
@@ -282,9 +493,13 @@ export default class Role extends PureComponent {
             userData,
             deptData,
             treeData,
+            authData,
+            regionData,
             selectedKey,
             checkedKeys,
-            selRowKeys
+            authCheckedKeys,
+            selRowKeys,
+            regSelectKeys
         } = this.state;
         // 表格列
         const userColumns = [
@@ -336,7 +551,7 @@ export default class Role extends PureComponent {
             wrapperCol: {span: 12},
         };
 
-        // 角色、权限树
+        // 角色、权限、区域、部门树
         const roleProps = {// 树索要用到的参数
             treeData, // 要一级数据.
             selectedKey,
@@ -347,21 +562,24 @@ export default class Role extends PureComponent {
             },
             onSelect: (selectedKeys, info) => {
                 this.onSelect(selectedKeys, info);
-            },
-            onLoadData: (treeNode) => { // 载入数据.
-                this.loadRoleData(treeNode);
-            },
+            }
         };
         const authProps = {// 树索要用到的参数
-            treeData, // 要一级数据.
+            treeData: authData, // 要一级数据.
             selectedKey,
             checkable: false,
-            onLoadData: (treeNode) => { // 载入数据.
-                this.loadAuthData(treeNode);
-            },
+        };
+        const regionProps = {// 表所要用到的参数
+            treeData: regionData,
+            selectedKey,
+            checkable: false,
+        };
+        const deptProps = {// 表所要用到的参数
+            treeData,
+            checkable: false,
         };
 
-        // 新增\编辑传参
+        // 角色新增、编辑、复制传参
         const addModalProps = {
             add: this.state.add,
             parentId: this.state.parentId,
@@ -370,7 +588,7 @@ export default class Role extends PureComponent {
             },
             onCreate: (values) => {
                 SysRoleMgService.addRoles({...values}).then((res) => {
-                    if (res.success) {
+                    if (res.code === 0) {
                         message.success('保存成功');
                         if (this.isMount) {
                             this.setState({add: false}, () => {
@@ -394,7 +612,7 @@ export default class Role extends PureComponent {
                 },
             onCreate: (values) => {
                 SysRoleMgService.editRoles({...values}).then((data) => {
-                    if (data.success) {
+                    if (data.code === 0) {
                         message.success('编辑成功!');
                         if (this.isMount) {
                             this.setState({edit: false}, () => {
@@ -418,7 +636,7 @@ export default class Role extends PureComponent {
             },
             onCreate: (values) => {
                 SysRoleMgService.copyRoles({...values}).then((data) => {
-                    if (data.success) {
+                    if (data.code === 0) {
                         message.success('复制成功!');
                         if (this.isMount) {
                             this.setState({edit: false}, () => {
@@ -433,6 +651,119 @@ export default class Role extends PureComponent {
                     }
                 });
             },
+        };
+        // 权限编辑
+        const editAuthModalProps = {
+            editAuth: this.state.editAuth,
+            checkedKeys: authCheckedKeys,
+            onClose: () => {
+                this.editAuthModal(false, [], 1);
+            },
+            onCreate: () => {
+                let params = {
+                    userIds: checkedKeys,
+                    authIds: authCheckedKeys
+                };
+                console.log(params);
+
+                SysRoleMgService.editRolePriv({...params}).then((data) => {
+                    if (data.code === 0) {
+                        message.success('修改权限成功!');
+                        if (this.isMount) {
+                            this.setState({editAuth: false}, () => {
+                                // this.treeQuery(); 编辑完后进行的动作
+                            });
+                        }
+                    } else {
+                        message.error('修改权限失败');
+                        if (this.isMount) {
+                            this.setState({loading: false});
+                        }
+                    }
+                });
+            },
+            onCheck: (checkedKeys) => {
+                this.setState({ authCheckedKeys: checkedKeys });
+            },
+        };
+        // 区域编辑
+        const editRegModalProps = {
+            editReg: this.state.editReg,
+            regSelectKeys,
+            onClose: () => {
+                this.editRegionModal(false, [], 1);
+            },
+            onCreate: () => {
+                let params = {
+                    userIds: checkedKeys,
+                    regionIds: regSelectKeys
+                };
+                SysRoleMgService.editRegion({...params}).then((data) => {
+                    if (data.code === 0) {
+                        message.success('修改区域成功!');
+                        if (this.isMount) {
+                            this.setState({editAuth: false}, () => {
+                                // this.treeQuery(); 编辑完后进行的动作
+                            });
+                        }
+                    } else {
+                        message.error('修改区域失败');
+                        if (this.isMount) {
+                            this.setState({loading: false});
+                        }
+                    }
+                });
+            },
+            onSelectChange: (selectedRowKeys, selectedRows) => { // 载入数据.
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                this.setState({ regSelectKeys: selectedRowKeys });
+            },
+        };
+        // 部门编辑
+        const editDeptModalProps = {
+            edit: this.state.editDept,
+            checkedKeys: this.state.deptCheckedKeys,
+            onClose: () => {
+                this.editDeptModal(false, [], 1);
+            },
+            onCreate: (values) => {
+                let params = new Object();
+                params.userIds = checkedKeys;
+                params.deptIds = values;
+
+                DeptService.ediDept({...params}).then((data) => {
+                    if (data.code === 0) {
+                        message.success('修改部门成功!');
+                        if (this.isMount) {
+                            this.setState({editDept: false}, () => {
+                                // this.treeQuery(); 编辑完后进行的动作
+                            });
+                        }
+                    } else {
+                        message.error('修改部门失败');
+                        if (this.isMount) {
+                            this.setState({loading: false});
+                        }
+                    }
+                });
+            },
+            onCheck: (checkedKeys) => {
+                this.setState({ deptCheckedKeys: checkedKeys });
+            },
+            onCheckSelect: (checkedKeys) => {
+                this.setState({ deptCheckedKeys: checkedKeys });
+            },
+        };
+        // 人员新增
+        const addUserModalProps = {
+            add: this.state.addUser,
+            checkedKeys: this.state.deptCheckedKeys,
+            onClose: () => {
+                this.addUsers([], 1);
+            },
+            onCreate: (values) => {
+
+            }
         };
 
         return (
@@ -457,7 +788,7 @@ export default class Role extends PureComponent {
                             <Button type="primary" icon="copy" onClick={() => this.copyRoleModal(true, this.state.record, this.state.checkedKeys, 0)}>复制</Button>
                         </div>
                         <div className="treeStyle">
-                            <Tree {...roleProps}/>
+                            <Tree {...roleProps} onLoadData={this.loadRoleData}/>
                         </div>
                     </Col>
                     <Col span={19} className="rightContent">
@@ -465,9 +796,9 @@ export default class Role extends PureComponent {
                            <Tabs type="card">
                                <TabPane tab="权限管理" key="1">
                                    <div className="btnGroup" style={{width: '18%', padding: '5px 0'}}>
-                                       <Button type="primary" icon="edit" style={{width: '42%'}}>修改权限</Button>
+                                       <Button type="primary" icon="edit" style={{width: '42%'}} onClick={() => this.editAuthModal(true, this.state.checkedKeys, 0)}>修改权限</Button>
                                        <div className="divider"></div>
-                                       <Button type="danger" icon="delete" style={{width: '42%'}}>批量删权</Button>
+                                       <Button type="danger" icon="delete" style={{width: '42%'}} onClick={() => this.delAuths()}>批量删权</Button>
                                        {/*<div className="divider"></div>*/}
                                        {/*<Button type="primary" icon="edit">修改个性域</Button>*/}
                                        {/*<div className="divider"></div>*/}
@@ -480,27 +811,27 @@ export default class Role extends PureComponent {
                                    </div>
                                    <div className="authorityManage">
                                         <header>权限名称</header>
-                                        <Tree {...authProps}/>
+                                        <Tree {...authProps}  onLoadData={this.loadAuthData}/>
                                    </div>
                                </TabPane>
-                               <TabPane tab="区域管理" key="2">
-                                   <div className="btnGroup btnGroupOther">
-                                       <Button type="primary" icon="edit">修改</Button>
-                                   </div>
-                                   <div className="deptManage">
-                                       <header>区域名称(全局区域)</header>
-                                       <Tree {...authProps}/>
-                                   </div>
-                               </TabPane>
-                               <TabPane tab="部门管理" key="3">
-                                   <div className="btnGroup btnGroupOther">
-                                       <Button type="primary" icon="edit">修改</Button>
-                                   </div>
-                                   <div className="deptManage">
-                                       <header>部门名称-区域</header>
-                                       <Tree {...authProps}/>
-                                   </div>
-                               </TabPane>
+                               {/*<TabPane tab="区域管理" key="2">*/}
+                                   {/*<div className="btnGroup btnGroupOther">*/}
+                                       {/*<Button type="primary" icon="edit" onClick={() => this.editRegionModal(true, this.state.checkedKeys, 0)}>修改</Button>*/}
+                                   {/*</div>*/}
+                                   {/*<div className="deptManage">*/}
+                                       {/*<header>区域名称(全局区域)</header>*/}
+                                       {/*<Tree {...regionProps}  onLoadData={this.loadRegData}/>*/}
+                                   {/*</div>*/}
+                               {/*</TabPane>*/}
+                               {/*<TabPane tab="部门管理" key="3">*/}
+                                   {/*<div className="btnGroup btnGroupOther">*/}
+                                       {/*<Button type="primary" icon="edit" onClick={() => this.editDeptModal(true, this.state.checkedKeys, 0)}>修改</Button>*/}
+                                   {/*</div>*/}
+                                   {/*<div className="deptManage">*/}
+                                       {/*<header>部门名称-区域</header>*/}
+                                       {/*<Tree {...deptProps}  onLoadData={this.loadDeptData}/>*/}
+                                   {/*</div>*/}
+                               {/*</TabPane>*/}
                            </Tabs>
                        </div>
                         <div>
@@ -535,7 +866,7 @@ export default class Role extends PureComponent {
                                     <div className="btnGroup" style={{width: '20%', padding: '5px 2px'}}>
                                         <Button type="primary" onClick={this.handleSearch} icon="search" className="btnThre">查询</Button>
                                         <div className="divider"></div>
-                                        <Button type="primary" icon="plus-circle-o" className="btnThre">新增</Button>
+                                        <Button type="primary" icon="plus-circle-o" className="btnThre"onClick={() => this.addUsers(this.state.checkedKeys, 0)}>新增</Button>
                                         <div className="divider"></div>
                                         <Popconfirm
                                             onConfirm={() => this.delUsers()}
@@ -557,19 +888,19 @@ export default class Role extends PureComponent {
                                         size="small"
                                     />
                                 </TabPane>
-                                <TabPane tab="部门" key="2">
-                                    <div className="btnGroup btnGroupOther">
-                                        <Button type="primary" icon="edit">修改</Button>
-                                    </div>
-                                    <Table
-                                        columns={deptColumns}
-                                        rowKey={record => `${record.id}`}
-                                        dataSource={deptData}
-                                        loading={loading}
-                                        scroll={{ y: 240 }}
-                                        size="small"
-                                    />
-                                </TabPane>
+                                {/*<TabPane tab="部门" key="2">*/}
+                                    {/*<div className="btnGroup btnGroupOther">*/}
+                                        {/*<Button type="primary" icon="edit" onClick={() => this.editDeptModal(true, this.state.checkedKeys, 0)}>修改</Button>*/}
+                                    {/*</div>*/}
+                                    {/*<Table*/}
+                                        {/*columns={deptColumns}*/}
+                                        {/*rowKey={record => `${record.id}`}*/}
+                                        {/*dataSource={deptData}*/}
+                                        {/*loading={loading}*/}
+                                        {/*scroll={{ y: 240 }}*/}
+                                        {/*size="small"*/}
+                                    {/*/>*/}
+                                {/*</TabPane>*/}
                             </Tabs>
                         </div>
                     </Col>
@@ -577,6 +908,11 @@ export default class Role extends PureComponent {
                 <RoleAdd {...addModalProps}/>
                 <RoleEdit {...editModalProps}/>
                 <RoleCopy {...copyModalProps}/>
+
+                <AuthEdit {...editAuthModalProps}/>
+                {/*<RegEdit {...editRegModalProps}/>*/}
+                {/*<DeptEdit {...editDeptModalProps}/>*/}
+                <UserAdd {...addUserModalProps}/>
             </div>
         )
     }

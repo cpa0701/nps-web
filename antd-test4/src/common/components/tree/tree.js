@@ -3,7 +3,7 @@ import { Tree } from 'antd';
 
 const TreeNode = Tree.TreeNode;
 
-const TreeComponent = ({treeData, onSelect, onCheck, checkedKeys, onLoadData, checkable,showLine,defaultExpandedKeys}) => {
+const TreeComponent = ({treeData, onSelect, onCheck, checkedKeys, onLoadData, checkable,showLine,defaultExpandedKeys,defaultDeptSelectedKeys}) => {
     const loop = data => data.map((item) => {
         if (item.children) {
             return (
@@ -19,6 +19,7 @@ const TreeComponent = ({treeData, onSelect, onCheck, checkedKeys, onLoadData, ch
             showLine={showLine}
             checkable={checkable}
             defaultExpandedKeys={defaultExpandedKeys}
+            defaultSelectedKeys={defaultDeptSelectedKeys}
             onSelect={onSelect}
             onCheck={onCheck}
             loadData={onLoadData}>{loop(treeData)}</Tree>

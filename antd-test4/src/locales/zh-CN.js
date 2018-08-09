@@ -17,6 +17,21 @@ export default {
         'domainType':'区域类型',
         'domainID':'区域码'
     },
+    'authority':{
+        'insert':'新增',
+        'modify':'修改',
+        'delete':'删除',
+        'detail':'详情',
+        'authorityName':'权限名称',
+        'authorityUrl':'链接url',
+        'authorityIcon':'图标名称',
+        'authorityDescribe':'权限描述',
+        'authorityNo':'同级序号',
+        'authorityType':'权限类型',
+        'authorityArea':'应用范围',
+        'authorityActivation':'是否激活',
+        'authoritySensitive':'是否敏感'
+    },
     'footer':{
         'text':'© 中兴软创科技股份有限公司 | 版权所有'
     },

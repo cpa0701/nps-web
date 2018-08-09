@@ -17,6 +17,21 @@ export default {
         'domainType':'DomainType',
         'domainID':'DomainID'
     },
+    'authority':{
+        'insert':'Insert',
+        'modify':'Modify',
+        'delete':'Delete',
+        'detail':'Details',
+        'authorityName':'Name',
+        'authorityUrl':'URL',
+        'authorityIcon':'Icon',
+        'authorityDescribe':'Description',
+        'authorityNo':'No',
+        'authorityType':'Type',
+        'authorityArea':'Area',
+        'authorityActivation':'Activate',
+        'authoritySensitive':'Sensitive'
+    },
     'footer':{
         'text':'© Powered by ZteSoft | All Rights Reserved'
     },

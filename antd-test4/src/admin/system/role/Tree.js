@@ -4,12 +4,12 @@ import { Tree } from 'antd';
 
 const TreeNode = Tree.TreeNode;
 
-const TreePic = ({treeData, onSelect, onCheck, checkedKeys, onLoadData, selectedKey, checkable}) => {
-    const loop = data => data.map((item) => {
+const TreePic = ({treeData, onSelect, onCheck, checkedKeys, onLoadData, selectedKey, checkable, defaultExpandedKeys}) => {
+    const loop = (data = []) => data.map((item) => {
         if (item.children) {
-            return <TreeNode title={item.name} key={item.key} dataRef={item}>{loop(item.children)}</TreeNode>;
+            return <TreeNode title={item.title} key={item.key} dataRef={item} isLeaf={item.isLeaf}>{loop(item.children)}</TreeNode>;
         }
-        return <TreeNode title={item.name} key={item.key} isLeaf={!item.isParent} dataRef={item}/>; // 可以添加禁用.
+        return <TreeNode title={item.title} key={item.key} dataRef={item}/>; // 可以添加禁用.
     });
     return (
         <Tree
@@ -19,7 +19,7 @@ const TreePic = ({treeData, onSelect, onCheck, checkedKeys, onLoadData, selected
             loadData={onLoadData}
             onCheck={onCheck}
             selectedKeys={selectedKey}
-            defaultExpandedKeys={['1']}
+            defaultExpandedKeys={defaultExpandedKeys}
         >
             {loop(treeData)}
         </Tree>

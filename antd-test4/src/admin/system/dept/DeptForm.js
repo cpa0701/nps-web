@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Row, Col, Input, Button, Icon, Select, Popconfirm} from 'antd';
+import {Form, Row, Col, Input, Button, Select, Popconfirm} from 'antd';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -16,13 +16,16 @@ class AdvancedSearchForm extends Component {
     getFields() {
         const {getFieldDecorator} = this.props.form;
         const children = [];
-        const fieldList = [{
+        const fieldList = [
+            {
             label: '部门范围',
             key: 'a',
             type: 'select',
             optionList: [{key: 0, title: '部门及子部门'}, {key: 1, title: '当前部门'}, {key: 2, title: '按区域'}]
-        }, {label: '人员帐号',
-            key: 'b',type: 'input'}, {
+        }, {
+            label: '人员帐号',
+            key: 'b', type: 'input'
+        }, {
             label: '人员工号',
             key: 'c',
             type: 'input'
@@ -44,7 +47,6 @@ class AdvancedSearchForm extends Component {
             key: 'f',
             optionList: [{key: 0, title: '全部'}, {key: 1, title: '有效'}, {key: 2, title: '无效'}]
         }]
-
         for (let i = 0; i < fieldList.length; i++) {
             children.push(
                 <Col span={8} key={i}>
@@ -67,6 +69,7 @@ class AdvancedSearchForm extends Component {
     }
 
     render() {
+        const {handleAdd, handleEdit, handleDelete,handleChangeDept} = this.props
         return (
             <Form
                 className="ant-advanced-search-form"
@@ -76,10 +79,13 @@ class AdvancedSearchForm extends Component {
                 <Row>
                     <Col span={24}>
                         <Button type="primary" htmlType="submit">查询</Button>
-                        <Button>新增</Button>
-                        <Button type="dashed">修改</Button>
-                        <Popconfirm title="确定删除吗?" okText="确定" cancelText="取消" onConfirm={this.handleDelete}>
+                        <Button onClick={handleAdd}>新增</Button>
+                        <Button onClick={handleEdit} type="dashed">修改</Button>
+                        <Popconfirm title="确定删除吗?" okText="确定" cancelText="取消" onConfirm={handleDelete}>
                             <Button type="danger">删除</Button>
+                        </Popconfirm>
+                        <Popconfirm title="确定更改吗?" okText="确定" cancelText="取消" onConfirm={handleChangeDept}>
+                            <Button>更改部门</Button>
                         </Popconfirm>
                     </Col>
                 </Row>
