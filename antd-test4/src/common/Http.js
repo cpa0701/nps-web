@@ -1,4 +1,7 @@
 import axios from 'axios';
+import {
+    message,
+} from 'antd';
 
 const $ = require("jquery");
 
@@ -31,7 +34,7 @@ export class Http {
         return url;
     }
 
-    async get(api, config = {}) {
+    async get(api, data = {}, config = {}) {
         api = this.getUrl(api);
         if (api.includes('mock')) {
             return await new Promise(function (resolve, reject) {
@@ -50,18 +53,17 @@ export class Http {
                 {
                     url: api,
                     method: 'GET',
+                    params: data,
                 }, config
             );
     }
 
     async post(api, data = {}, config = {}) {
         api = this.getUrl(api);
-
-        const formBody = JSON.stringify(data);
         if (api.includes('mock')) {
             return await new Promise(function (resolve, reject) {
                 $.ajax({
-                    url: api, data: formBody, type: "post",
+                    url: api, data: data, type: "post",
                     success: (res) => {
                         resolve(JSON.parse(res))//在异步操作成功时调用
                     },
@@ -70,14 +72,16 @@ export class Http {
                     }
                 });
             })
-        } else
+        } else {
             return await this._request(
                 {
                     url: api,
                     method: 'POST',
-                    params: formBody,
+                    data: data,
                 }, config
             );
+        }
+
     }
 
     async delete(api, config = {}) {
@@ -94,21 +98,29 @@ export class Http {
         api = this.getUrl(api);
 
         const formBody = JSON.stringify(data);
-            return await this._request(
-                {
-                    url: api,
-                    method: 'PUT',
-                    params: formBody,
-                }, config
-            );
+        return await this._request(
+            {
+                url: api,
+                method: 'PUT',
+                params: formBody,
+            }, config
+        );
     }
 
     async _request(params, config = {
         baseURL: '',
     }) {
         params = Object.assign(params, config);
-
-        return await axios(params);
+        return await axios(params)
+            .then(result => {
+            return result.data.data
+        }).catch(function (error) {
+            if (error.response.data.code === 401) {
+                window.location.href='#/login'
+            }
+            message.error(error.response.data.description);
+            return false
+        });
     }
 
     log(msg) {
