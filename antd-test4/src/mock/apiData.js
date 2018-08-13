@@ -653,3 +653,12 @@ Mock.mock("mock/systemController/Authority", {
         },
     ]
 })
+
+// 获取题库
+Mock.mock('mock/questionMgr/getQuestionLIst', {
+    'result|100': [{
+        title: '@csentence',
+        'id|+1': 1,
+        'type|1': ['radio', 'checkbox', 'blank']
+    }]
+})
