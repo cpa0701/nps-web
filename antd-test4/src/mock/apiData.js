@@ -44,32 +44,32 @@ Mock.mock('mock/menuInfoController/qryMenu', {
         {
             menuName: '调研问卷管理',
             icon: 'form',
-            menuUrl: '/nps',
+            menuUrl: '/npsMgr',
             menuId: 2,
             children: [
                 {
                     menuName: '题目管理',
-                    menuUrl: '/nps/questionLibMgr',
+                    menuUrl: '/npsMgr/questionLibMgr',
                     menuId: 21,
                 },
                 {
                     menuName: '问卷管理',
-                    menuUrl: '/nps/questionMgr',
+                    menuUrl: '/npsMgr/questionMgr',
                     menuId: 22,
                     children: [
                         {
                             menuName: '问卷申请',
-                            menuUrl: '/nps/questionMgr',
+                            menuUrl: '/npsMgr/questionMgr/questionApplication',
                             menuId: 221,
                         },
                         {
                             menuName: '问卷审核',
-                            menuUrl: '/nps/questionMgr',
+                            menuUrl: '/npsMgr/questionMgr/questionAudit',
                             menuId: 222,
                         },
                         {
                             menuName: '问卷库',
-                            menuUrl: '/questionnaireLibrary',
+                            menuUrl: '/npsMgr/questionMgr/questionnaireLibrary',
                             menuId: 223,
                         }
                     ]
@@ -204,7 +204,7 @@ Mock.mock('mock/menuInfoController/qryMenu', {
 
 //获取部门树
 Mock.mock('mock/dept/getDeptTree', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     if (!params1.rowId)
         return Mock.mock({
             'treeData|5': [{
@@ -243,7 +243,7 @@ Mock.mock('mock/dept/getDeptTree', (params) => {
 })
 //获取所有权限树
 Mock.mock('mock/dept/getAllAuthorityData', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     if (!params1.rowId)
         return Mock.mock({
             'treeData|10': [{
@@ -282,7 +282,7 @@ Mock.mock('mock/dept/getAllAuthorityData', (params) => {
 })
 //判断部门唯一性
 Mock.mock('mock/dept/checkDeptName', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     return Mock.mock({
         'result': {
             'code': 0
@@ -291,7 +291,7 @@ Mock.mock('mock/dept/checkDeptName', (params) => {
 })
 //新增部门
 Mock.mock('mock/dept/addDept', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -301,7 +301,7 @@ Mock.mock('mock/dept/addDept', (params) => {
 })
 //删除角色
 Mock.mock('mock/dept/dleRole', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -311,7 +311,7 @@ Mock.mock('mock/dept/dleRole', (params) => {
 })
 //删除部门
 Mock.mock('mock/dept/dleDept', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -321,7 +321,7 @@ Mock.mock('mock/dept/dleDept', (params) => {
 })
 //编辑部门
 Mock.mock('mock/dept/ediDept', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -331,7 +331,7 @@ Mock.mock('mock/dept/ediDept', (params) => {
 })
 //编辑部门
 Mock.mock('mock/dept/editAuthority', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -341,7 +341,7 @@ Mock.mock('mock/dept/editAuthority', (params) => {
 })
 //新增角色
 Mock.mock('mock/dept/addRole', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -352,7 +352,7 @@ Mock.mock('mock/dept/addRole', (params) => {
 
 //获取人员信息
 Mock.mock('mock/dept/getStaffData', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     return Mock.mock({
         'dataList|10': [
             {
@@ -371,7 +371,7 @@ Mock.mock('mock/dept/getStaffData', (params) => {
                 "password": "@integer(1,9999999)",
                 "remark": "@cparagraph",
                 "sex|1": ['M', 'F'],
-                "state|1":[0,1,2]
+                "state|1": [0, 1, 2]
             }
         ],
         'pageInfo': {
@@ -383,7 +383,7 @@ Mock.mock('mock/dept/getStaffData', (params) => {
 })
 //新增人员
 Mock.mock('mock/dept/addStaff', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -393,7 +393,7 @@ Mock.mock('mock/dept/addStaff', (params) => {
 })
 //删除人员
 Mock.mock('mock/dept/dleStaff', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     return Mock.mock({
         'result': {
             'code': 0
@@ -402,7 +402,7 @@ Mock.mock('mock/dept/dleStaff', (params) => {
 })
 //编辑人员
 Mock.mock('mock/dept/ediStaff', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -412,7 +412,7 @@ Mock.mock('mock/dept/ediStaff', (params) => {
 })
 //更改部门
 Mock.mock('mock/dept/changeDept', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     console.log(params1);
     return Mock.mock({
         'result': {
@@ -423,7 +423,7 @@ Mock.mock('mock/dept/changeDept', (params) => {
 
 //获取部门页面角色树
 Mock.mock('mock/dept/getRoleTree', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     if (!params1.rowId)
         return Mock.mock({
             'treeData|5': [{
@@ -462,7 +462,7 @@ Mock.mock('mock/dept/getRoleTree', (params) => {
 })
 //获取部门页面权限树
 Mock.mock('mock/dept/getAuthorityTree', (params) => {
-    let params1 = params.body?JSON.parse(params.body):"";
+    let params1 = params.body ? JSON.parse(params.body) : "";
     if (!params1.rowId)
         return Mock.mock({
             'treeData|5': [{
@@ -609,42 +609,43 @@ Mock.mock('mock/system/rolesController/getUserDate', {
     ]
 })
 //权限配置管理
-Mock.mock("mock/systemController/Authority",{
-    "authorityData":[
-        {   key:0,
-            name:'权限树',
-            url:'',
-            icon:'qwerer',
-            describe:'权限树',
-            No:1,
-            type:'菜单',
-            area:'全局',
-            activate:'是',
-            sensitive:'',
-            'children|7':[
+Mock.mock("mock/systemController/Authority", {
+    "authorityData": [
+        {
+            key: 0,
+            name: '权限树',
+            url: '',
+            icon: 'qwerer',
+            describe: '权限树',
+            No: 1,
+            type: '菜单',
+            area: '全局',
+            activate: '是',
+            sensitive: '',
+            'children|7': [
                 {
                     key: "@natural(1,10000)",
-                    name:'@cname',
-                    url:'@url',
-                    icon:'@cname',
-                    describe:'@cword(5)',
+                    name: '@cname',
+                    url: '@url',
+                    icon: '@cname',
+                    describe: '@cword(5)',
                     No: "@natural(1,10000)",
-                    'type|1':['菜单','其他'],
-                    'area|1':['全局','信管系统','重保','统计分析'],
-                    'activate|1':['是','否'],
-                    sensitive:'',
-                    'children|2':[
+                    'type|1': ['菜单', '其他'],
+                    'area|1': ['全局', '信管系统', '重保', '统计分析'],
+                    'activate|1': ['是', '否'],
+                    sensitive: '',
+                    'children|2': [
                         {
                             key: "@natural(1,10000)",
-                            name:'@cname',
-                            url:'@url',
-                            icon:'@cname',
-                            describe:'@cword(5)',
+                            name: '@cname',
+                            url: '@url',
+                            icon: '@cname',
+                            describe: '@cword(5)',
                             No: "@natural(1,10000)",
-                            'type|1':['菜单','其他'],
-                            'area|1':['全局','信管系统','重保','统计分析'],
-                            'activate|1':['是','否'],
-                            sensitive:'',
+                            'type|1': ['菜单', '其他'],
+                            'area|1': ['全局', '信管系统', '重保', '统计分析'],
+                            'activate|1': ['是', '否'],
+                            sensitive: '',
                         }
                     ]
                 }
