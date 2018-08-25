@@ -168,11 +168,6 @@ export default class Dept extends PureComponent {
         this.getAllAuthorityData();
     }
 
-    componentDidMount() {
-        //第一次默认加载
-        // this.standardTable.handleSearch({current: 1, pageSize: 10})
-    }
-
     //收起展开部门
     toggle = () => {
         this.setState({
@@ -458,6 +453,10 @@ export default class Dept extends PureComponent {
         }, () => {
             this.standardTable.handleSearch({pageInfo: {pageIndex: 1, pageSize: 10}, ...params})
         });
+    }
+    //查询人员表格
+    onRef = (ref) => {
+        this.standardTable = ref
     }
     //新增人员
     handleStaffAdd = () => {
@@ -827,10 +826,10 @@ export default class Dept extends PureComponent {
                                               handleChangeDept={this.handleChangeDept}
                                               getStaffParams={this.getStaffData}/>
                                     <StandardTable
-                                        ref={child => this.standardTable = child}
                                         rowKey={"id"}
                                         // rowSelection={{selectedRowKeys:[10000]}}
                                         columns={staffColumns}
+                                        onRef={this.onRef}
                                         service={DeptService}
                                         method="getStaffData"
                                         onDoubleClick={this.handelViewStaff}

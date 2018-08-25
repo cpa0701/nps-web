@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Table, Alert, Spin, Button} from 'antd';
 import './table.less';
+import {inject} from "mobx-react/index"
 
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',');
 
@@ -24,11 +25,11 @@ function initAsyncSpan(columns) {
         }
     });
 }
-
+@inject('stores')
 class StandardTable extends PureComponent {
     constructor(props) {
         super(props);
-        const {columns, rowSelection} = props;
+        const {columns, rowSelection,onRef} = props;
         const selectedRowKeys = rowSelection ? rowSelection.selectedRowKeys : [];
         const needTotalList = initTotalList(columns);
         this.state = {
@@ -36,7 +37,8 @@ class StandardTable extends PureComponent {
             selectedRowKeys: (selectedRowKeys || []),
             needTotalList,
         };
-        this.rowClassName = this.rowClassName.bind(this)
+        this.rowClassName = this.rowClassName.bind(this);
+        onRef(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -223,6 +225,7 @@ class StandardTable extends PureComponent {
     }
 
     render() {
+        const {dept}=this.props.stores.I18nModel.outputLocale
         const {selectedRowKeys, needTotalList} = this.state;
         const {
             title, size, columns, rowKey, showRowSelection,
@@ -285,7 +288,7 @@ class StandardTable extends PureComponent {
                                             onClick={this.cleanSelectedKeys}
                                             disabled={(selectedRowKeys.length === 0)}
                                             type="primary"
-                                            ghost={true}>清空</Button>
+                                            ghost={true}>{dept.clear}</Button>
                                 </div>
                             )}
                             type="info"

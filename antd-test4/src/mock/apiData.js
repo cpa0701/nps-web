@@ -352,7 +352,7 @@ Mock.mock('mock/dept/addRole', (params) => {
 
 //获取人员信息
 Mock.mock('mock/dept/getStaffData', (params) => {
-    let params1 = params.body ? JSON.parse(params.body) : "";
+    let params1 = params.body ? serialize(decodeURI(params.body)) : "";
     return Mock.mock({
         'dataList|10': [
             {
@@ -377,7 +377,7 @@ Mock.mock('mock/dept/getStaffData', (params) => {
         'pageInfo': {
             'totalRow': '@integer(1,500)',
             'pageNum': 10,
-            'pageIndex': params1.pageInfo.pageIndex
+            'pageIndex': params1['pageInfo[pageIndex]']
         }
     })
 })

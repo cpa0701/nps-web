@@ -17,6 +17,9 @@ export default {
         'domainType':'区域类型',
         'domainID':'区域码'
     },
+    'dept':{
+        'clear':'清空',
+    },
     'authority':{
         'insert':'新增',
         'modify':'修改',

@@ -17,6 +17,9 @@ export default {
         'domainType':'DomainType',
         'domainID':'DomainID'
     },
+    'dept':{
+        'clear':'Clear',
+    },
     'authority':{
         'insert':'Insert',
         'modify':'Modify',

@@ -22,7 +22,7 @@ class QuestionApplication extends React.PureComponent {
                 const QuestionType = ({type}) => {
                     return this.QuestionType(type)
                 }
-                const questionList = result.result.map(question => {
+                const questionList = result.result.map((question,i) => {
                     return <QuestionType type={question.type} key={question.id}/>
                 })
                 this.setState({
@@ -69,8 +69,8 @@ class QuestionApplication extends React.PureComponent {
     }
 
     render() {
-        const questionDisplayList = this.state.questionDisplayList1.map((item, i) => {
-            return this.QuestionType(item);
+        const questionDisplayList = this.state.questionDisplayList1.map((type, i) => {
+            return this.QuestionType(type);
         });
         return (
             <div>
