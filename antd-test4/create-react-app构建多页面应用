@@ -1,0 +1,101 @@
+用构建工具create-react-app初始化的项目默认是单页应用，即整个项目只有一个入口文件和出口文件。但是在实际工作中，由于业务的需求，需要多页面应用，这里记录一下如何修改create-react-app的默认配置来满足多页应用的开发。
+
+1、在项目下执行yarn run eject(npm run eject)
+此命令对项目工程是不可逆的，且只能执行一次。运行后，package.js会被更新，工程下会多出config目录，其中有webpack有两个配置文件，分别对应开发和生产环境（/config/webpack.config.dev.js和/config/webpack.config.prod.js）。这两个配置文件都要修改，但略有不同，下面以dev为例说明：
+
+2、修改webpack配置支持多入口
+修改config/paths.js文件
+安装globby yarn add globby
+//遍历public下目录下的html文件生成arry
+const globby = require('globby');
+const htmlArray = globby.sync([path.join(resolveApp('public'), '/*.html')]);
+
+
+//module.exports 里面增加
+htmlArray
+
+修改config/webpack.config.dev.js
+要点：
+entry从原来的数组扩展为对象，每个key代表一个入口；
+output中的filename要区分输出名，可增加[name]变量，这样会根据entry分别编译出每个entry的js文件。
+Webpack配置多入口后，只是编译出多个入口的JS，同时入口的HTML文件由HtmlWebpackPlugin生成，也需做配置。chunks，指明哪些webpack入口的JS会被注入到这个HTML页面。如果不配置，则将所有entry的JS文件都注入HTML。filename，指明生成的HTML路径，如果不配置就是build/index.html，admin配置了新的filename，避免与第一个入口的index.html相互覆盖。
+// 遍历html
+const entryObj = {};
+const htmlPluginsAray = paths.htmlArray.map((v)=> {
+ const fileParse = path.parse(v);
+
+ entryObj[fileParse.name] = [
+  require.resolve('./polyfills'),
+  require.resolve('react-dev-utils/webpackHotDevClient'),
+  `${paths.appSrc}/${fileParse.name}.js`,,
+ ]
+ return new HtmlWebpackPlugin({
+  inject: true,
+  chunks:[fileParse.name],
+  //chunks: [fileParse.name,'vendor'],//如果需要提出公共文件需要这样配
+  template: `${paths.appPublic}/${fileParse.base}`,
+  filename: fileParse.base
+ })
+});
+
+<!--entry 替换为entryObj-->
+entry：entryObj
+//entry: Object.assign({
+        // 用到什么公共lib（例如jquery.js），就把它加进vendor去，目的是将公用库单独提取打包
+        'vendor': ['react', 'react-dom', 'react-router-dom', 'jquery']
+    }, entryObj)//如果需要提出公共文件需要这样配
+
+
+//出口增加[name]
+output: {
+    path: paths.appBuild,
+    pathinfo: true,
+    filename: 'static/js/[name].js',
+    chunkFilename: 'static/js/[name].chunk.js',
+    publicPath: publicPath,
+    devtoolModuleFilenameTemplate: info =>
+      path.resolve(info.absoluteResourcePath),
+  },
+
+<!--替换htmlplugin内容-->
+// new HtmlWebpackPlugin({
+//  inject: true,
+//  chunks: ["index"],
+//  template: paths.appPublic + '/index.html',
+// }),
+...htmlPluginsAray,
+修改config/webpackDevServer.config.js
+上述配置做完后，理论就可以打包出多入口的版本；但使用npm start启动后，发现无论输入/index.html还是/admin.html，好像都是和原来/index.html显示一样的内容。甚至输入显然不存在的/xxxx.html，也显示为/index.html的内容。
+
+这种现象，初步判断是HTTP服务器把所有请求重定向到了/index.html。对于单页应用，这种做法是没有问题的（本来就一个页面）；但我们新增的/admin.html就不能访问了。发现是webpack dev server的问题，还要额外做一些配置，需修改/config/webpackDevServer.config.js。
+
+// 增加
+const path = require('path');
+
+const htmlPluginsAray = paths.htmlArray.map((v)=> {
+ const fileParse = path.parse(v);
+ return {
+  from: new RegExp(`^\/${fileParse.base}`), to: `/build/${fileParse.base}`
+ };
+});
+
+<!--historyApiFallback 增加 rewrites-->
+rewrites: htmlPluginsAray
+3、prod环境
+修改config/webpack.config.prod.js，同开发环境。
+修改scripts/build.js
+增加复制模块（yarn add cpy）
+  //增加
+  const cpy = require('cpy');
+
+
+  // function copyPublicFolder () 替换
+  // 原来的方法是复制public下所有的内容，因为增加了多html 所以不再直接复制过去(直接复制会覆盖html)
+const copyPublicFolder = async() => {
+ await cpy([`${paths.appPublic}/*.*`, `!${paths.appPublic}/*.html`], paths.appBuild);
+ console.log('copy success!');
+ // fs.copySync(paths.appPublic, paths.appBuild, {
+ //  dereference: true,
+ //  filter: file => file !== paths.appHtml,
+ // });
+}

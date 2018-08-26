@@ -1,0 +1,4 @@
+1.报500错误：
+项目文件放在了nginx无法访问的路径，建议在本机的话就放在nginx目录下
+2.nginx命令找不到，要去环境变量的系统变量中去配，然后重启系统
+3.gzip压缩时的gzip_types的这个值application/javascript不能写成application/x-javascript，不然无法识别，gzip不生效
