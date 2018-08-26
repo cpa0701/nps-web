@@ -8,7 +8,7 @@
 安装globby yarn add globby
 //遍历public下目录下的html文件生成arry
 const globby = require('globby');
-const htmlArray = globby.sync([path.join(resolveApp('public'), '/*.html')]);
+const htmlArray = globby.sync([path.join(resolveApp('public'), '/*.html')]);//匹配public文件下的所有html入口文件，然后做为对应多页面的参数配置
 
 
 //module.exports 里面增加
@@ -27,7 +27,7 @@ const htmlPluginsAray = paths.htmlArray.map((v)=> {
  entryObj[fileParse.name] = [
   require.resolve('./polyfills'),
   require.resolve('react-dev-utils/webpackHotDevClient'),
-  `${paths.appSrc}/${fileParse.name}.js`,,
+  `${paths.appSrc}/${fileParse.name}.js`,
  ]
  return new HtmlWebpackPlugin({
   inject: true,
