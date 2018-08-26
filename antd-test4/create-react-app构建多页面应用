@@ -99,3 +99,4 @@ const copyPublicFolder = async() => {
  //  filter: file => file !== paths.appHtml,
  // });
 }
+//如果public文件下有别的文件如css或images文件加，则还是使用原来方法
