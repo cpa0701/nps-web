@@ -1,6 +1,6 @@
 import React from 'react';
 import {Layout} from 'antd';
-import {HashRouter as Router, Switch} from 'react-router-dom';
+import {HashRouter as Router} from 'react-router-dom';
 
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
@@ -20,6 +20,7 @@ class Main extends React.Component {
     componentWillUpdate(nextProps) {
         // console.log(nextProps)//监听路由
     }
+
     render() {
         return (
             <Router>
@@ -28,9 +29,7 @@ class Main extends React.Component {
                     <Content>
                         <Breadcrumb/>
                         <div className="content">
-                            <Switch>
-                                <RouteList/>
-                            </Switch>
+                            <RouteList/>
                         </div>
                     </Content>
                     <Footer/>

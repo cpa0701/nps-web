@@ -45,7 +45,7 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     ? // Making sure that the publicPath goes back to to build folder.
     {publicPath: Array(cssFilename.split('/').length).join('../')}
     : {};
-
+const CompressionPlugin = require("compression-webpack-plugin");
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
@@ -54,9 +54,12 @@ module.exports = {
     bail: true,
     // We generate sourcemaps in production. This is slow but gives good results.
     // You can exclude the *.map files from the build during deployment.
-    devtool: shouldUseSourceMap ? 'source-map' : false,
+    devtool: false,
     // In production, we only want to load the polyfills and the app code.
-    entry: ["babel-polyfill",require.resolve('./polyfills'), paths.appIndexJs],
+    entry: {
+        'index': ["babel-polyfill", require.resolve('./polyfills'), paths.appIndexJs],
+        vendor: ['react', 'react-dom', 'react-router-dom']
+    },
     output: {
         // The build folder.
         path: paths.appBuild,
@@ -299,6 +302,22 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.bundle.js'
+        }),
+        // new CompressionPlugin({
+        //     asset: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
+        //     algorithm: 'gzip',//算法
+        //     test: new RegExp(
+        //         '\\.(js|css)$'    //压缩 js 与 css
+        //     ),
+        //     threshold: 10240,//只处理比这个值大的资源。按字节计算
+        //     minRatio: 0.8//只有压缩率比这个值小的资源才会被处理
+        // }),
+        // 将代码中有重复的依赖包去重
+        new webpack.optimize.DedupePlugin(),
         // Makes some environment variables available in index.html.
         // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
